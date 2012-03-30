@@ -742,3 +742,51 @@ Stack trace:
 REQUEST_URI=/master/site/index
 HTTP_REFERER=http://localhost/master/rights/authItem/generate
 ---
+2012/03/30 12:12:55 [error] [exception.CException] exception 'CException' with message 'Property "LoginButton.send" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:174
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWidgetFactory.php(162): CComponent->__set('send', true)
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(147): CWidgetFactory->createWidget(Object(SiteController), 'ext.yii-faceboo...', Array)
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(173): CBaseController->createWidget('ext.yii-faceboo...', Array)
+#3 C:\xampp\htdocs\master\protected\views\site\index.php(14): CBaseController->widget('ext.yii-faceboo...', Array)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', NULL, true)
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', NULL, true)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#8 C:\xampp\htdocs\master\protected\controllers\SiteController.php(32): CController->render('index')
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('index')
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#15 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/master/site/index
+HTTP_REFERER=http://localhost/master/rights/authItem/generate
+---
+2012/03/30 12:18:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "users".' in C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php:280
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('users')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/master/users
+---
+2012/03/30 12:23:04 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\xampp\htdocs\yii-1.1.10\framework\web\auth\CAccessControlFilter.php:157
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\auth\CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('logout')
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('site/logout')
+#9 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/master/site/logout
+HTTP_REFERER=http://localhost/master/site/index
+---

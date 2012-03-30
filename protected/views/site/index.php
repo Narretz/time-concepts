@@ -7,10 +7,9 @@
 echo CHtml::link('<button>Start Experiments</button>', array('user/index'));
 
 
-$this->widget('ext.yii-facebook-opengraph.plugins.LikeButton', array(
+$this->widget('ext.yii-facebook-opengraph.plugins.LoginButton', array(
    //'href' => 'YOUR_URL', // if omitted Facebook will use the OG meta tag
    'show_faces'=>true,
-   'send' => true
 ));
 
 ?>

@@ -18,12 +18,12 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','login', 'error', 'logout', 'page'),
+				'actions'=>array('contact','login', 'error', 'logout', 'page', 'register'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -94,6 +94,36 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+
+	/**
+	 * Displays the register page
+	 */
+
+	public function actionRegister(){
+		$model = new RegisterForm;
+
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='register-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['RegisterForm']))
+		{
+			$model->attributes=$_POST['RegisterForm'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate() && $model->register() && $model->login())
+			{
+				$this->redirect(Yii::app()->user->returnUrl);
+
+			}
+		}
+		// display the login form
+		$this->render('register',array('model'=>$model));
+	} 
+
 
 	/**
 	 * Displays the login page

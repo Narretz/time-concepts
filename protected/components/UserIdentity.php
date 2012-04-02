@@ -31,7 +31,7 @@ private $_id;
 		{
 		   $this->errorCode=self::ERROR_USERNAME_INVALID;
 		}
-		else if($user->password !== $this->password) //wrong password
+		else if($user->password !== hash('sha256', $this->password)) //wrong password
 		{
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 
@@ -43,8 +43,8 @@ private $_id;
 			//$this->setState('title', 'blubb');
 			$this->_id = $user->id;
 			$this->username = $user->username;
-
-			//$currentDate = date('Y-m-d H:i:s');
+			$user->last_login_time = date('Y-m-d h:i:s');
+			$user->save();
 		}
 		//what does the exclamation mark do here?
 		return !$this->errorCode;

@@ -13,10 +13,8 @@ $this->widget('ext.yii-facebook-opengraph.plugins.LoginButton', array(
 
 echo '<br />';
 
-$token = Yii::app()->facebook->getAccessToken();
+Yii::app()->facebook->getAccessToken();
 
-if($_SESSION['fb_'.Yii::app()->params['fb_app_id'].'_access_token'])
-{
 	$user = Yii::app()->facebook->getUser();
 
 	if ($user) {
@@ -25,11 +23,10 @@ if($_SESSION['fb_'.Yii::app()->params['fb_app_id'].'_access_token'])
 	    $user_profile = Yii::app()->facebook->api('/me');
 	    CVarDumper::dump($user_profile, 10, true);
 	  } catch (FacebookApiException $e) {
-	  	throw $e;
+	  	//throw $e;
 	    $user = null;
 	  }
 	}
-}
 
 
 

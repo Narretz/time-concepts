@@ -98,7 +98,7 @@ class SetController extends Controller
 
 	public function beforeAction($action) {
 
-		//CVarDumper::dump($_GET, 10, true);
+		//CVarDumper::dump($this->getActionParams(), 10, true);
 		//CVarDumper::dump($model->tasks_complete, 10, true);
 
 		//CVarDumper::dump($_SESSION, 10, true);
@@ -106,20 +106,21 @@ class SetController extends Controller
 		$config = array();
 		switch ($action->id) {
 		case 'take':
-				$steps = array('Q1' => '2', 'Q2' => '3');
+				//$steps = array('Q1' => '2', 'Q2' => '3');
 
 				//CVarDumper::dump($steps, 10, true);
 
 				/*if(isset($_GET['id']))
-				{
+				{*/
 					$model = Set::model()->findByPk($_GET['id'])->with(array('tasks_complete'));
 					$steps = array();
 					foreach ($model->tasks_complete as $index => $task){
 						$steps['Q'.($index+1)] = $task->id;
 					}
-				}*/
+				//}
 				$config = array(
 					'steps'=> $steps,
+					'addParams' => array('id' => 1),
 					'events'=>array(
 						'onStart'=>'wizardStart',
 						'onProcessStep'=>'quizProcessStep',
@@ -136,7 +137,7 @@ class SetController extends Controller
 		return parent::beforeAction($action);
 	}
 
-	public function actionTake($step=null) {
+	public function actionTake($step=null, $id) {
 		//$this->pageTitle = 'Quiz Wizard';
 	//$model = Set::model()->findByPk(1)->with(array('tasks_complete'));
 	
@@ -166,6 +167,8 @@ class SetController extends Controller
 			if ($model->validate()) {
 				$event->sender->save(array('answer'=>$model->missing));
 				$event->handled = true;
+			} else {
+				$this->render('/tasks/taskComplete/take', array('event' => $event, 'model' => $model));
 			}
 		}
 		else {

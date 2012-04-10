@@ -78,6 +78,11 @@ class WizardBehavior extends CBehavior {
 	 * of the parameter in the action that calls the wizard.
 	 */
 	public $queryParam ='step';
+
+	/**
+	 * @property array Additional url query parameters appended when generating links. Name => Value pairs.
+	 */
+	public $addParams = array();
 	/**
 	* @property string The session key for the wizard.
 	*/
@@ -345,6 +350,10 @@ class WizardBehavior extends CBehavior {
 		$previous = true;
 		$items = array();
 		$url = array($this->owner->id.'/'.$this->getOwner()->getAction()->getId());
+		foreach ($this->addParams as $name => $value)
+		{
+			$url[$name] = $value;
+		}
 
 		// We should not have a url for later steps
 		// We should not have a url for earlier steps if forwards only
@@ -431,7 +440,13 @@ class WizardBehavior extends CBehavior {
 	protected function redirect($step = null, $terminate=true, $statusCode=302) {
 		if (!is_string($step))
 			$step = $this->getExpectedStep();
-		$url = array($this->owner->id.'/'.$this->getOwner()->getAction()->getId(), $this->queryParam=>$step);
+		$url = array($this->owner->id.'/'.$this->getOwner()->getAction()->getId());
+		foreach ($this->addParams as $name => $value)
+		{
+			$url[$name] = $value;
+		}
+
+		$url[$this->queryParam] = $step;
 		$this->owner->redirect($url, $terminate, $statusCode);
 	}
 

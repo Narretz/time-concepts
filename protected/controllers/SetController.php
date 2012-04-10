@@ -160,6 +160,7 @@ class SetController extends Controller
 		
 		$model = TaskComplete::model()->findByPk($event->step);
 		$model->setAttribute('missing', '');
+		$model->attributes = $event->data;
 		//CVarDumper::dump($event, 10, true);
 
 		//CVarDumper::dump($_SESSION, 10 , true);
@@ -167,7 +168,7 @@ class SetController extends Controller
 		{
 			$model->attributes =  $_POST['TaskComplete'];
 			if ($model->validate()) {
-				$event->sender->save(array('answer'=>$model->missing));
+				$event->sender->save(array('missing'=>$model->missing));
 				$event->handled = true;
 			} else {
 				$this->render('/tasks/taskComplete/take', array('event' => $event, 'model' => $model));

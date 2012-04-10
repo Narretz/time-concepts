@@ -358,15 +358,14 @@ class WizardBehavior extends CBehavior {
 			$item = array();
 			$item['label'] = $this->getStepLabel($step);
 
-			//Set handled to false before the url is generated
+			//Check handled before the url is generated
 			if(!isset($handledSteps[$step]))
 			{
 				$handled = false;
 			}
 
-			if (($handled && !$this->forwardOnly) || (isset($handledSteps[$step])) || ($step===$this->_currentStep)) {
+			if (($handled && !$this->forwardOnly) || ($step===$this->_currentStep)) {
 				$item['url'] = $url + array($this->queryParam=>$step);
-				//mark menu items that have not been handled
 			}
 
 			$item['active'] = $step===$this->_currentStep;
@@ -375,17 +374,6 @@ class WizardBehavior extends CBehavior {
 
 			$items[] = $item;
 		}
-
-		if(isset($handledSteps[$this->_currentStep]))
-		{
-		
-		
-		CVarDumper::dump($this->_steps[1], 10, true);
-
-		CVarDumper::dump($this->_currentStep, 10, true);
-
-		CVarDumper::dump($this->_session[$this->_stepsKey]->toArray(), 10, true);
-	}
 
 		if (!empty($this->menuLastItem))
 			$items[] = array(

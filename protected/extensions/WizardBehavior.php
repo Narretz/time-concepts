@@ -347,30 +347,46 @@ class WizardBehavior extends CBehavior {
 	}
 
 	private function generateMenuItems() {
-		$previous = true;
+		$handledSteps = $this->_session[$this->_stepsKey]->toArray();
+		$handled = true;
 		$items = array();
-		$url = array($this->owner->id.'/'.$this->getOwner()->getAction()->getId());
-		foreach ($this->addParams as $name => $value)
-		{
-			$url[$name] = $value;
-		}
+		$url = array($this->owner->id.'/'.$this->getOwner()->getAction()->getId()) + $this->addParams;
 
-		// We should not have a url for later steps
-		// We should not have a url for earlier steps if forwards only
+		// We should only have a url for later steps if these steps have been handled already
+		// We should not have a url for earlier steps if forward only
 		foreach ($this->_steps as $step) {
 			$item = array();
 			$item['label'] = $this->getStepLabel($step);
-			if (($previous && !$this->forwardOnly) || ($step===$this->_currentStep)) {
-				$item['url'] = $url + array($this->queryParam=>$step);
-				if ($step===$this->_currentStep)
-					$previous = false;
+
+			//Set handled to false before the url is generated
+			if(!isset($handledSteps[$step]))
+			{
+				$handled = false;
 			}
+
+			if (($handled && !$this->forwardOnly) || (isset($handledSteps[$step])) || ($step===$this->_currentStep)) {
+				$item['url'] = $url + array($this->queryParam=>$step);
+				//mark menu items that have not been handled
+			}
+
 			$item['active'] = $step===$this->_currentStep;
-			if ($previous && !empty($this->menuProperties['previousItemCssClass']))
+			if ($handled && $step!=$this->_currentStep && !empty($this->menuProperties['previousItemCssClass']))
 				$item['itemOptions'] = array('class'=>$this->menuProperties['previousItemCssClass']);
 
 			$items[] = $item;
 		}
+
+		if(isset($handledSteps[$this->_currentStep]))
+		{
+		
+		
+		CVarDumper::dump($this->_steps[1], 10, true);
+
+		CVarDumper::dump($this->_currentStep, 10, true);
+
+		CVarDumper::dump($this->_session[$this->_stepsKey]->toArray(), 10, true);
+	}
+
 		if (!empty($this->menuLastItem))
 			$items[] = array(
 				'label'=>$this->menuLastItem,

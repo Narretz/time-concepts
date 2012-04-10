@@ -106,21 +106,23 @@ class SetController extends Controller
 		$config = array();
 		switch ($action->id) {
 		case 'take':
-				//$steps = array('Q1' => '2', 'Q2' => '3');
-
 				//CVarDumper::dump($steps, 10, true);
 
-				/*if(isset($_GET['id']))
-				{*/
+				//get the get parameters and load the associated model to prepare the steps
+				if(isset($_GET['id']))
+				{
 					$model = Set::model()->findByPk($_GET['id'])->with(array('tasks_complete'));
 					$steps = array();
 					foreach ($model->tasks_complete as $index => $task){
 						$steps['Q'.($index+1)] = $task->id;
 					}
-				//}
+				} else {
+					$this->invalidActionParams($this->getAction());
+					
+				}
 				$config = array(
 					'steps'=> $steps,
-					'addParams' => array('id' => 1),
+					'addParams' => array('id' => $_GET['id']),
 					'events'=>array(
 						'onStart'=>'wizardStart',
 						'onProcessStep'=>'quizProcessStep',

@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'task_complete':
  * @property integer $id
- * @property string $type
  * @property string $text
  * @property string $missing
  * @property string $create_time
@@ -13,8 +12,6 @@
  */
 class TaskComplete extends Model
 {
-
-	const TYPE= 'complete';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -42,13 +39,10 @@ class TaskComplete extends Model
 		// will receive user inputs.
 		return array(
 			array('text, missing', 'required'),
-			array('type, missing', 'length', 'max'=>256),
+			array('missing', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, text, missing, create_time, update_time', 'safe', 'on'=>'search'),
-		    array('type','default',
-              'value'=> self::TYPE,
-              'setOnEmpty'=>false,'on'=>'insert')
 		);
 	}
 
@@ -72,7 +66,6 @@ class TaskComplete extends Model
 	{
 		return array(
 			'id' => 'ID',
-			'type' => 'Type',
 			'text' => 'Text',
 			'missing' => 'Model Solution',
 			'create_time' => 'Creation Time',
@@ -100,5 +93,15 @@ class TaskComplete extends Model
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function getTypeLabel()
+	{
+		return 'Completion Task';
+	}
+
+	public function getInput()
+	{
+		return array('missing');
 	}
 }

@@ -1,21 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "sets".
+ * This is the model class for table "tasks".
  *
- * The followings are the available columns in table 'sets':
+ * The followings are the available columns in table 'tasks':
  * @property integer $id
- * @property string $title
- * @property string $description
+ * @property integer $type
  * @property string $create_time
  * @property string $update_time
  */
-class Set extends Model
+class Task extends Model
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Set the static model class
+	 * @return Task the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +26,7 @@ class Set extends Model
 	 */
 	public function tableName()
 	{
-		return 'sets';
+		return 'tasks';
 	}
 
 	/**
@@ -38,11 +37,11 @@ class Set extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, description', 'required'),
-			array('title', 'length', 'max'=>256),
+			array('type, create_time, update_time', 'required'),
+			array('type', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, description, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, type, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,12 +52,9 @@ class Set extends Model
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-        return array(
-            'tasks_complete'=>array(self::MANY_MANY, 'TaskComplete',
-                'sets_to_tasks(set_id, task_id)'),
-            'tasks' =>array(self::MANY_MANY, 'Task', 
-            	'sets_to_tasks(set_id, task_id)'),
-        );
+		return array(
+			'tasks_complete' => array(self::HAS_MANY, 'TaskComplete', 'id'),
+		);
 	}
 
 	/**
@@ -68,9 +64,8 @@ class Set extends Model
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
-			'create_time' => 'Creation Time',
+			'type' => 'Type',
+			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 		);
 	}
@@ -87,13 +82,18 @@ class Set extends Model
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected $types = array('1' => 'TaskComplete');
+
+	public function getType($typeId){
+		return $this->types[$typeId];
 	}
 }

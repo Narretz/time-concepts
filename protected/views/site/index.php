@@ -4,12 +4,7 @@
 
 <?php
 
-echo CHtml::link('<button>Start Experiments</button>', array('user/index'));
-/*
-$this->widget('ext.yii-facebook-opengraph.plugins.LoginButton', array(
-   'show_faces'=>true,
-   'width' => 300,
-));*/
+echo CHtml::link('<button>Start Experiments</button>', array('/set/take', 'id' => '1', 'step' => ''));
 
 echo '<br />';
 
@@ -21,7 +16,7 @@ Yii::app()->facebook->getAccessToken();
 	  try {
 	    // Proceed knowing you have a logged in user who's authenticated.
 	    $user_profile = Yii::app()->facebook->api('/me');
-	    CVarDumper::dump($user_profile, 10, true);
+	    //CVarDumper::dump($user_profile, 10, true);
 	  } catch (FacebookApiException $e) {
 	  	//throw $e;
 	    $user = null;
@@ -41,7 +36,6 @@ if ($user) {
   $login_url = Yii::app()->facebook->getLoginUrl($params);
   echo CHtml::link('Log in with Facebook', $login_url); 
 }
-
 
 CVarDumper::dump($_SESSION, 10, true);
 ?>

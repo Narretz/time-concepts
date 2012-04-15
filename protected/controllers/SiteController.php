@@ -18,11 +18,11 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','login', 'error', 'logout', 'page', 'register'),
+				'actions'=>array('contact','login', 'error', 'logout', 'page', 'register', 'index'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index'),
+				'actions'=>array(),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users

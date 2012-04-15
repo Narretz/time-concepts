@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Completion Tasks',
+	'Tasks',
 );
 
 $this->menu=array(
-	array('label'=>'Create TaskComplete', 'url'=>array('create')),
-	array('label'=>'Manage TaskComplete', 'url'=>array('admin')),
+	array('label'=>'Create Task', 'url'=>array('create')),
+	array('label'=>'Manage Task', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Completion Tasks</h1>
+<h1>Tasks</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

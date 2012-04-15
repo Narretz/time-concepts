@@ -28,9 +28,18 @@ echo '<h3>'.$event->sender->getStepLabel($event->step).'</h3>';
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
+		<?php echo CHtml::submitButton('Next Question'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<?php $this->endWidget();
+
+//Yii::app()->session['var'] = 'value';
+
+//CVarDumper::dump(Yii::app()->getSession(), 10, true);
+
+CVarDumper::dump($_SESSION, 10, true);
+
+?>
+
 
 </div><!-- form -->

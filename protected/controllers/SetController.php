@@ -27,15 +27,15 @@ class SetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'take'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('take'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete', 'create', 'update'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -53,15 +53,10 @@ class SetController extends Controller
 		//Load the model together with its relations
 		$model = Set::model()->findByPk($id)->with(array('task_complete'));
 
-		CVarDumper::dump($model->tasks_complete[0]->attributes, 10, true);
+		//CVarDumper::dump($model->tasks_complete[0]->attributes, 10, true);
 		//create a data provider for the relations
-		$taskProvider=new CArrayDataProvider($model->tasks_complete, array(
+		$taskProvider=new CArrayDataProvider($model->tasks, array(
 		    'id'=>'tasks',
-		    'sort'=>array(
-		        'attributes'=>array(
-		             'text', 'missing',
-		        ),
-		    ),
 		    'pagination'=>array(
 		        'pageSize'=>10,
 		    ),
@@ -101,25 +96,26 @@ class SetController extends Controller
 		//CVarDumper::dump($this->getActionParams(), 10, true);
 		//CVarDumper::dump($model->tasks_complete, 10, true);
 
-		//CVarDumper::dump($_SESSION, 10, true);
+		//CVarDumper::dump($_GET['step'], 10, true);
 
 		$config = array();
 		switch ($action->id) {
 		case 'take':
-				//CVarDumper::dump($steps, 10, true);
-
 				//get the get parameters and load the associated model to prepare the steps
 				if(isset($_GET['id']))
 				{
-					$model = Set::model()->findByPk($_GET['id'])->with(array('tasks_complete'));
+					$model = Set::model()->findByPk($_GET['id'])->with(array('tasks'));
+					//CVarDumper::dump($model->tasks_complete, 10, true);
 					$steps = array();
-					foreach ($model->tasks_complete as $index => $task){
+					foreach ($model->tasks as $index => $task){
 						$steps['Q'.($index+1)] = $task->id;
 					}
 				} else {
+					//raise error
 					$this->invalidActionParams($this->getAction());
 					
 				}
+
 				$config = array(
 					'steps'=> $steps,
 					'addParams' => array('id' => $_GET['id']),
@@ -130,8 +126,20 @@ class SetController extends Controller
 						'onInvalidStep'=>'wizardInvalidStep',
 					)
 				);
+
+				if(empty($_GET['step']))
+				{
+					$session = Yii::app()->getSession();
+					$session['types'] = new CMap;
+
+					foreach ($model->tasks as $index => $task){
+						$session['types'][$task->id] = $task->getType($task->type);
+					}					
+				}
+
 				break;
 		}
+
 		if (!empty($config)) {
 			$config['class']='application.extensions.WizardBehavior';
 			$this->attachBehavior('wizard', $config);
@@ -141,14 +149,11 @@ class SetController extends Controller
 
 	public function actionTake($step=null, $id) {
 		//$this->pageTitle = 'Quiz Wizard';
-	//$model = Set::model()->findByPk(1)->with(array('tasks_complete'));
-	
 
 		//CVarDumper::dump($model->tasks_complete[0]->attributes, 10, true);
 
 		//CVarDumper::dump($_SESSION, 10, true);
 
-		//$this->reset();
 		$this->process($step);
 	}
 
@@ -157,25 +162,36 @@ class SetController extends Controller
 	* @param WizardEvent The event
 	*/
 	public function quizProcessStep($event) {
-		
-		$model = TaskComplete::model()->findByPk($event->step);
-		$model->setAttribute('missing', '');
-		$model->attributes = $event->data;
-		//CVarDumper::dump($event, 10, true);
-
-		//CVarDumper::dump($_SESSION, 10 , true);
-		if(isset($_POST['TaskComplete']))
+		$type= Yii::app()->session['types'][$event->step];
+		$model = $type::model()->findByPk($event->step);
+		//empty the input the users have to make
+		$fields = array();
+		foreach ($model->getInput() as $attribute)
 		{
-			$model->attributes =  $_POST['TaskComplete'];
+			$fields[$attribute] = '';
+		}
+		$model->setAttributes($fields);
+		$model->attributes = $event->data;
+
+		//if we have input, validate and save the data in the wizard session
+		if(isset($_POST[$type]))
+		{
+			$model->attributes =  $_POST[$type];
 			if ($model->validate()) {
-				$event->sender->save(array('missing'=>$model->missing));
+				$data = array();
+				foreach ($_POST[$type] as $attribute => $value)
+				{
+					$data[$attribute] = $model->$attribute;
+				}
+
+				$event->sender->save($data);
 				$event->handled = true;
 			} else {
-				$this->render('/tasks/taskComplete/take', array('event' => $event, 'model' => $model));
+				$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
 			}
 		}
 		else {
-			$this->render('/tasks/taskComplete/take', array('event' => $event, 'model' => $model));
+			$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
 		}
 	}
 
@@ -292,8 +308,9 @@ class SetController extends Controller
 	* @param WizardEvent The event
 	*/
 	public function quizFinished($event) {
-		$this->render('/set/end', compact('event'));
 		$event->sender->reset();
+		unset(Yii::app()->session['types']);
+		$this->render('/set/end', compact('event'));
 		Yii::app()->end();
 	}
 

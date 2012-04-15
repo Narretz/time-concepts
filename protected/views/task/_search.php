@@ -11,13 +11,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'text'); ?>
-		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'missing'); ?>
-		<?php echo $form->textField($model,'missing',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
 	</div>
 
 	<div class="row">

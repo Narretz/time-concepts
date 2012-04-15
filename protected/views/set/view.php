@@ -40,7 +40,7 @@ foreach ($model->tasks_complete as $task){
 
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$taskProvider,
-	'itemView'=>'/tasks/taskComplete/_view',
+	'itemView'=>'/task/_view',
 ));
 
 ?>

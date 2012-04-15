@@ -1,6 +1,6 @@
 <?php
 
-class TaskCompleteController extends Controller
+class TaskController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -50,8 +50,19 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = Task::model()->findByPk($id);
+
+		$taskType = $model->type;
+
+		$taskType = 'TaskComplete';
+
+		$taskDetail = $taskType::model()->findByPk($model->id);
+
+		//CVarDumper::dump($taskDetail, 10, true);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $model,
+			'taskDetail' => $taskDetail,
 		));
 	}
 
@@ -61,14 +72,14 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new TaskComplete;
+		$model=new Task;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['TaskComplete']))
+		if(isset($_POST['Task']))
 		{
-			$model->attributes=$_POST['TaskComplete'];
+			$model->attributes=$_POST['Task'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,9 +101,9 @@ class TaskCompleteController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['TaskComplete']))
+		if(isset($_POST['Task']))
 		{
-			$model->attributes=$_POST['TaskComplete'];
+			$model->attributes=$_POST['Task'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,8 +138,7 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('TaskComplete');
-		//CVarDumper::dump($dataProvider, 10, true);
+		$dataProvider=new CActiveDataProvider('Task');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,10 +149,10 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new TaskComplete('search');
+		$model=new Task('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['TaskComplete']))
-			$model->attributes=$_GET['TaskComplete'];
+		if(isset($_GET['Task']))
+			$model->attributes=$_GET['Task'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -156,7 +166,7 @@ class TaskCompleteController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=TaskComplete::model()->findByPk($id);
+		$model=Task::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -168,7 +178,7 @@ class TaskCompleteController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='task-complete-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='task-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

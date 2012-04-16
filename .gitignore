@@ -35,3 +35,6 @@ Thumbs.db
 
 .sublime-workspace
 .sublime-project
+
+protected/runtime
+assets

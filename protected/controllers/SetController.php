@@ -179,10 +179,13 @@ class SetController extends Controller
 			$model->attributes =  $_POST[$type];
 			if ($model->validate()) {
 				$data = array();
-				foreach ($_POST[$type] as $attribute => $value)
+				foreach ($model->getInput() as $attribute)
 				{
 					$data[$attribute] = $model->$attribute;
 				}
+
+				$data['type'] = $type;
+				$data['task_id'] = $event->step;
 
 				$event->sender->save($data);
 				$event->handled = true;
@@ -308,18 +311,21 @@ class SetController extends Controller
 	* @param WizardEvent The event
 	*/
 	public function quizFinished($event) {
+		foreach ($event->data as $result)
+		{
+			$modelType = $result['type'].'Result';
+			$model = new $modelType;
+			unset($result['type']);
+			$model->attributes = $result;
+			$model->user_id = Yii::app()->user->id;
+			$model->save();
+		}
+
+		CVarDumper::dump($model->getErrors(), 10, true);
 		$event->sender->reset();
 		unset(Yii::app()->session['types']);
 		$this->render('/set/end', compact('event'));
 		Yii::app()->end();
-	}
-
-	/**
-	* Raised when a step has expired.
-	* @param WizardEvent The event
-	*/
-	public function quizExpiredStep($event) {
-		$event->sender->save(array('answer'=>'<slow>'));
 	}
 
 	/**

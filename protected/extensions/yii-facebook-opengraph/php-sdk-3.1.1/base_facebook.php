@@ -332,23 +332,30 @@ abstract class BaseFacebook
    *                could not be determined.
    */
   protected function getUserAccessToken() {
+      //var_dump('tokentest');
     // first, consider a signed request if it's supplied.
     // if there is a signed request, then it alone determines
     // the access token.
     $signed_request = $this->getSignedRequest();
+     //var_dump('requesttest');
     if ($signed_request) {
+      //var_dump('requestgotest');
       // apps.facebook.com hands the access_token in the signed_request
       if (array_key_exists('oauth_token', $signed_request)) {
         $access_token = $signed_request['oauth_token'];
         $this->setPersistentData('access_token', $access_token);
+        //var_dump('344');
         return $access_token;
       }
 
       // the JS SDK puts a code in with the redirect_uri of ''
       if (array_key_exists('code', $signed_request)) {
         $code = $signed_request['code'];
+        //var_dump('requestcodetest');
         $access_token = $this->getAccessTokenFromCode($code, '');
+        //var_dump($access_token);
         if ($access_token) {
+          //var_dump('353');
           $this->setPersistentData('code', $code);
           $this->setPersistentData('access_token', $access_token);
           return $access_token;
@@ -363,8 +370,10 @@ abstract class BaseFacebook
     }
 
     $code = $this->getCode();
+    //var_dump('codetest');
     if ($code && $code != $this->getPersistentData('code')) {
       $access_token = $this->getAccessTokenFromCode($code);
+      //var_dump('wtf');
       if ($access_token) {
         $this->setPersistentData('code', $code);
         $this->setPersistentData('access_token', $access_token);
@@ -667,18 +676,21 @@ abstract class BaseFacebook
                           'redirect_uri' => $redirect_uri,
                           'code' => $code));
     } catch (FacebookApiException $e) {
+      throw $e;
       // most likely that user very recently revoked authorization.
       // In any event, we don't have an access token, so say so.
       return false;
     }
 
     if (empty($access_token_response)) {
+      //var_dump('emptyresponse');
       return false;
     }
 
     $response_params = array();
     parse_str($access_token_response, $response_params);
     if (!isset($response_params['access_token'])) {
+      //var_dump($response_params);
       return false;
     }
 

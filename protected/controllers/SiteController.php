@@ -18,10 +18,10 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','login', 'error', 'logout', 'page', 'register', 'index'),
+				'actions'=>array('contact', 'error', 'logout', 'page', 'register', 'login', 'index'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			array('allow',
 				'actions'=>array(),
 				'users'=>array('@'),
 			),
@@ -130,6 +130,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -144,14 +145,48 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if(Yii::app()->user->isGuest && $model->validate() && $model->login())
 			{
 				$this->redirect(Yii::app()->user->returnUrl);
 
 			}
 		}
+
+		//handle facebook login
+			$fbUser = Yii::app()->facebook->getUser();
+
+			if ($fbUser) {
+			  try {
+			    //Proceed knowing you have a logged in user who's authenticated.
+			    $user_profile = Yii::app()->facebook->api('/me');
+			    if(Yii::app()->user->isGuest)
+			    {
+				    if(!$this->loginFBUser($user_profile))
+				    {
+				    	$this->registerFBUser($user_profile);
+				    	
+				    }
+				}
+			  } catch (FacebookApiException $e) {
+			  	//throw $e;
+			    $fbUser = null;
+			  }
+			}
+		// Login or logout url will be needed depending on current user state.
+		if ($fbUser) {
+			$params = array(
+				'next' => 'http://narretz.de/time/site/logout/'
+			);
+		  $logout_url = Yii::app()->facebook->getLogoutUrl($params);
+		} else {
+			$params = array(
+				'redirect_uri' => 'http://narretz.de/time/site/login/'
+			);
+		  $login_url = Yii::app()->facebook->getLoginUrl($params);
+		}
+
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login',array('model'=>$model, 'fbUser' => $fbUser, 'login_url' => $login_url, 'logout_url' => $logout_url));
 	}
 
 	/**
@@ -161,5 +196,41 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function loginFBUser($user_profile)
+	{
+		$identity = new FbUserIdentity($user_profile['id']);
+		$identity->authenticate();
+
+		if($identity->errorCode===UserIdentity::ERROR_NONE)
+		{
+			$duration = 0;
+			if(Yii::app()->user->login($identity, $duration))
+			{
+				$this->refresh();
+			}
+		}
+		else if($identity->errorCode===UserIdentity::ERROR_USERNAME_INVALID)
+		{
+			return false;			
+		}
+	}
+
+	public function registerFBUser($user_profile)
+	{
+			$user = new User;
+			$user->email = $user_profile['email'];
+			$user->username = $user_profile['id'];
+			$user->type = 'facebook';
+			$user->last_login_time = date('Y-m-d h:i:s');
+			$user->create_time = date('Y-m-d h:i:s');
+
+			if($user->insert(array('username', 'email', 'type', 'last_login_time', 'create_time')))
+			{
+				$this->loginFBUser($user_profile);
+			} else {
+				return false;
+			}
 	}
 }

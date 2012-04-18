@@ -1,7 +1,8 @@
 <?php
-
 class SetController extends Controller
 {
+
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -11,37 +12,142 @@ class SetController extends Controller
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
+	public function filters() 
+	{ 
+	   return array( 
+	      'rights', 
+	   ); 
 	}
 
 	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
+	* @return string the actions that are always allowed separated by commas.
+	*/
+	public function allowedActions()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('take'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'create', 'update'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return 'take';
+	}
+
+	public function beforeAction($action) {
+
+		//CVarDumper::dump($this->getActionParams(), 10, true);
+		//CVarDumper::dump($model->tasks_complete, 10, true);
+
+		//CVarDumper::dump($_GET['step'], 10, true);
+
+		$config = array();
+		switch ($action->id) {
+		case 'take':
+
+				//get the get parameters and load the associated model to prepare the steps
+				if(isset($_GET['id']))
+				{
+					$criteriaAccess = new CDbCriteria;
+					$criteriaAccess->params=array(':id'=> $_GET['id'], ':user_id' => Yii::app()->user->id);
+					$criteriaAccess->condition='user_id=:user_id AND set_id=:id';
+					$setUser = SetUser::model()->find($criteriaAccess);
+
+					if(!Yii::app()->user->checkAccess('Set.Take', array('completed'=>$setUser->completed)))
+					{
+						$this->accessDenied();
+					}
+
+					$steps = array();
+					$session = Yii::app()->getSession();		
+
+					//When step is empty, this means wizard start
+					//Fetch relevant set data and save it in the session so we do not have to query the db on every page request
+					if(empty($_GET['step']))
+					{	
+						$criteria = new CDbCriteria;
+						$criteria->condition='t.id=:id';
+						$criteria->params=array(':id'=> $_GET['id']);
+						$criteria->with = array('tasks');
+						$criteria->together=true;
+						$model = Set::model()->find($criteria);
+
+						$session['Quiz.types'] = new CMap;
+						$session['Quiz.steps'] = new CMap;
+
+						foreach ($model->tasks as $index => $task){
+							$session['Quiz.types'][$task->id] = $task->getType($task->type);
+							$session['Quiz.steps']['Q'.($index+1)] = $task->id;
+							$steps['Q'.($index+1)] = $task->id;
+						}			
+					} else {
+						$steps = $session['Quiz.steps'];
+					}
+
+					//Wizard needs to be attached on every page request
+					$config = array(
+						'steps'=> $steps,
+						'addParams' => array('id' => $_GET['id']),
+						'events'=>array(
+							'onStart'=>'wizardStart',
+							'onProcessStep'=>'quizProcessStep',
+							'onFinished'=>'quizFinished',
+							'onInvalidStep'=>'wizardInvalidStep',
+						)
+					);
+
+				} else {
+					//raise error
+					$this->invalidActionParams($this->getAction());
+				}
+
+				break;
+		}
+
+		if (!empty($config)) {
+			$config['class']='application.extensions.WizardBehavior';
+			$this->attachBehavior('wizard', $config);
+		}
+		return parent::beforeAction($action);
+	}
+
+	public function actionTake($step=null, $id) {
+
+		$this->process($step);
+	}
+
+	/**
+	* Process steps from the quiz
+	* @param WizardEvent The event
+	*/
+	public function quizProcessStep($event) {
+		$type= Yii::app()->session['Quiz.types'][$event->step];
+		$model = $type::model()->findByPk($event->step);
+		//empty the input the users have to make
+		$fields = array();
+		foreach ($model->getInput() as $attribute)
+		{
+			$fields[$attribute] = '';
+		}
+		$model->setAttributes($fields);
+		$model->attributes = $event->data;
+
+		//if we have input, validate and save the data in the wizard session
+		if(isset($_POST[$type]))
+		{
+			$model->attributes =  $_POST[$type];
+			if ($model->validate()) {
+				$data = array();
+				foreach ($model->getInput() as $attribute)
+				{
+					$data[$attribute] = $model->$attribute;
+				}
+
+				$data['type'] = $type;
+				$data['task_id'] = $event->step;
+
+				$event->sender->save($data);
+				$event->handled = true;
+			} else {
+				$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
+			}
+		}
+		else {
+			$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
+		}
 	}
 
 	/**
@@ -89,113 +195,6 @@ class SetController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
-
-	public function beforeAction($action) {
-
-		//CVarDumper::dump($this->getActionParams(), 10, true);
-		//CVarDumper::dump($model->tasks_complete, 10, true);
-
-		//CVarDumper::dump($_GET['step'], 10, true);
-
-		$config = array();
-		switch ($action->id) {
-		case 'take':
-				//get the get parameters and load the associated model to prepare the steps
-				if(isset($_GET['id']))
-				{
-					$model = Set::model()->findByPk($_GET['id'])->with(array('tasks'));
-					//CVarDumper::dump($model->tasks_complete, 10, true);
-					$steps = array();
-					foreach ($model->tasks as $index => $task){
-						$steps['Q'.($index+1)] = $task->id;
-					}
-				} else {
-					//raise error
-					$this->invalidActionParams($this->getAction());
-					
-				}
-
-				$config = array(
-					'steps'=> $steps,
-					'addParams' => array('id' => $_GET['id']),
-					'events'=>array(
-						'onStart'=>'wizardStart',
-						'onProcessStep'=>'quizProcessStep',
-						'onFinished'=>'quizFinished',
-						'onInvalidStep'=>'wizardInvalidStep',
-					)
-				);
-
-				if(empty($_GET['step']))
-				{
-					$session = Yii::app()->getSession();
-					$session['types'] = new CMap;
-
-					foreach ($model->tasks as $index => $task){
-						$session['types'][$task->id] = $task->getType($task->type);
-					}					
-				}
-
-				break;
-		}
-
-		if (!empty($config)) {
-			$config['class']='application.extensions.WizardBehavior';
-			$this->attachBehavior('wizard', $config);
-		}
-		return parent::beforeAction($action);
-	}
-
-	public function actionTake($step=null, $id) {
-		//$this->pageTitle = 'Quiz Wizard';
-
-		//CVarDumper::dump($model->tasks_complete[0]->attributes, 10, true);
-
-		//CVarDumper::dump($_SESSION, 10, true);
-
-		$this->process($step);
-	}
-
-	/**
-	* Process steps from the quiz
-	* @param WizardEvent The event
-	*/
-	public function quizProcessStep($event) {
-		$type= Yii::app()->session['types'][$event->step];
-		$model = $type::model()->findByPk($event->step);
-		//empty the input the users have to make
-		$fields = array();
-		foreach ($model->getInput() as $attribute)
-		{
-			$fields[$attribute] = '';
-		}
-		$model->setAttributes($fields);
-		$model->attributes = $event->data;
-
-		//if we have input, validate and save the data in the wizard session
-		if(isset($_POST[$type]))
-		{
-			$model->attributes =  $_POST[$type];
-			if ($model->validate()) {
-				$data = array();
-				foreach ($model->getInput() as $attribute)
-				{
-					$data[$attribute] = $model->$attribute;
-				}
-
-				$data['type'] = $type;
-				$data['task_id'] = $event->step;
-
-				$event->sender->save($data);
-				$event->handled = true;
-			} else {
-				$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
-			}
-		}
-		else {
-			$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
-		}
 	}
 
 	/**
@@ -311,19 +310,31 @@ class SetController extends Controller
 	* @param WizardEvent The event
 	*/
 	public function quizFinished($event) {
+		$setId = $_GET['id'];
+		$userId = Yii::app()->user->id;
 		foreach ($event->data as $result)
 		{
 			$modelType = $result['type'].'Result';
 			$model = new $modelType;
 			unset($result['type']);
 			$model->attributes = $result;
-			$model->user_id = Yii::app()->user->id;
+			$model->user_id = $userId;
+			$model->set_id = $setId;
 			$model->save();
 		}
 
-		CVarDumper::dump($model->getErrors(), 10, true);
+		$setUser = new SetUser;
+		$setUser->detachBehavior('CTimestampBehavior');
+		$setUser->set_id = $setId;
+		$setUser->user_id = $userId;
+		$setUser->completed = 1;
+		$setUser->tries = 1;
+		$setUser->save();
+		CVarDumper::dump($setUser->getErrors(), 10, true);
+
 		$event->sender->reset();
-		unset(Yii::app()->session['types']);
+		unset(Yii::app()->session['Quiz.types']);
+		unset(Yii::app()->session['Quiz.steps']);
 		$this->render('/set/end', compact('event'));
 		Yii::app()->end();
 	}

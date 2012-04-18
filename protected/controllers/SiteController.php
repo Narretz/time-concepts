@@ -2,34 +2,12 @@
 
 class SiteController extends Controller
 {
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',
-				'actions'=>array('contact', 'error', 'logout', 'page', 'register', 'login', 'index'),
-				'users'=>array('*'),
-			),
-			array('allow',
-				'actions'=>array(),
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
+	public function filters() 
+	{ 
+	   return array( 
+	      'rights', 
+	   ); 
+	} 
 
 	/**
 	 * Declares class-based actions.
@@ -220,13 +198,15 @@ class SiteController extends Controller
 	public function registerFBUser($user_profile)
 	{
 			$user = new User;
-			$user->email = $user_profile['email'];
 			$user->username = $user_profile['id'];
 			$user->type = 'facebook';
 			$user->last_login_time = date('Y-m-d h:i:s');
 			$user->create_time = date('Y-m-d h:i:s');
 
-			if($user->insert(array('username', 'email', 'type', 'last_login_time', 'create_time')))
+			//create initial auth role for new user
+			$auth = Yii::app()->authManager;
+
+			if($user->insert(array('username', 'email', 'type', 'last_login_time', 'create_time')) && $auth->assign('Authenticated', $user->id))
 			{
 				$this->loginFBUser($user_profile);
 			} else {

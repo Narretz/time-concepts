@@ -58,7 +58,10 @@ class RegisterForm extends CFormModel
 		$user->last_login_time = date('Y-m-d h:i:s');
 		$user->create_time = date('Y-m-d h:i:s');
 
-		if($user->save())
+		//create initial auth role for new user
+		$auth = Yii::app()->authManager;
+
+		if($user->save() && $auth->assign('Authenticated', $user->id))
 		{
 			return true;
 		} else {

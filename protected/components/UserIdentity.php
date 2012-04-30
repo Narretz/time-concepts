@@ -42,6 +42,7 @@ private $_id;
 			//$this->setState('title', 'blubb');
 			$this->_id = $user->id;
 			$this->username = $user->username;
+            $this->setState('type', 'native');
 			$user->last_login_time = date('Y-m-d h:i:s');
 			$user->save();
 		}

@@ -16,8 +16,14 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'question'); ?>
+		<?php echo $form->textField($model,'question',array('size'=>90, 'maxlength'=>500)); ?>
+		<?php echo $form->error($model,'question'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'missing'); ?>
-		<?php echo $form->textField($model,'missing',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->textArea($model,'missing',array('rows'=>3, 'cols'=>50, 'maxlength'=>500)); ?>
 		<?php echo $form->error($model,'missing'); ?>
 	</div>
 

@@ -7593,3 +7593,991 @@ Stack trace:
 REQUEST_URI=/master/set/take/1?step=
 HTTP_REFERER=http://localhost/master/site/index
 ---
+2012/04/19 16:31:39 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\xampp\htdocs\master\protected\components\Controller.php:68
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\controllers\SetController.php(51): Controller->accessDenied()
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(307): SetController->beforeAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/master/set/take?id=1&step=2
+---
+2012/04/19 16:32:32 [error] [php] Invalid argument supplied for foreach() (C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php:555)
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(329): WizardBehavior->attach()
+#1 C:\xampp\htdocs\master\protected\controllers\SetController.php(102): SetController->attachBehavior()
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(307): SetController->beforeAction()
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): SetController->runAction()
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#5 C:\xampp\htdocs\master\protected\components\Controller.php(42): RightsFilter->filter()
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): SetController->filterRights()
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): SetController->runActionWithFilters()
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): SetController->run()
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController()
+#12 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\master\index.php(13): CWebApplication->run()
+REQUEST_URI=/master/set/take/1?step=3
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (555)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (541)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (209)
+2012/04/19 16:35:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:337
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\controllers\SetController.php(104): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(307): SetController->beforeAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/master/set/take/1?step=3
+---
+2012/04/29 18:09:38 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:337
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\controllers\SetController.php(104): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(307): SetController->beforeAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/master/set/take?id=1&step=2
+HTTP_REFERER=http://localhost/master/site/login
+---
+2012/04/29 18:40:07 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (133)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:40:07 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (133)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:25 [error] [exception.CException] exception 'CException' with message 'Property "WizardEvent.step" is read only.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:171
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\controllers\SetController.php(125): CComponent->__set('step', 'info')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#2 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#3 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#4 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#5 [internal function]: WizardBehavior->process('4')
+#6 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#7 [internal function]: CComponent->__call('process', Array)
+#8 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('4')
+#9 [internal function]: SetController->actionTake('4', '1')
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#13 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#15 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#22 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#23 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#24 {main}
+REQUEST_URI=/master/set/take/1?step=4
+HTTP_REFERER=http://localhost/master/set/take/1?step=3
+---
+2012/04/29 18:44:40 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:40 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:45 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:45 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:48 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:48 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:50 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:44:50 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (138)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:47:20 [error] [exception.CException] exception 'CException' with message 'SetController cannot find the requested view "userInfo".' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:879
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('userInfo', Array, true)
+#1 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('userInfo', Array)
+#2 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#3 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#4 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#5 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#6 [internal function]: WizardBehavior->process('info')
+#7 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#8 [internal function]: CComponent->__call('process', Array)
+#9 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#10 [internal function]: SetController->actionTake('info', '1')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#13 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#16 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#23 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#24 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/29 18:50:52 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (150)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:50:52 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (150)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:54:44 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (150)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 18:54:44 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (150)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/29 19:03:12 [error] [exception.CException] exception 'CException' with message 'UserInfoForm has an invalid validation rule. The rule must specify attributes to be validated and the validator name.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CModel.php:287
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\base\CModel.php(259): CModel->createValidators()
+#1 C:\xampp\htdocs\yii-1.1.10\framework\base\CModel.php(302): CModel->getValidators('lgeNative')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\helpers\CHtml.php(1185): CModel->isAttributeRequired('lgeNative')
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\widgets\CActiveForm.php(560): CHtml::activeLabelEx(Object(UserInfoForm), 'lgeNative', Array)
+#4 C:\xampp\htdocs\master\protected\views\user\infoForm.php(24): CActiveForm->labelEx(Object(UserInfoForm), 'lgeNative')
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/user/infoForm', Array, true)
+#9 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('/user/infoForm', Array)
+#10 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#13 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#14 [internal function]: WizardBehavior->process('info')
+#15 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#16 [internal function]: CComponent->__call('process', Array)
+#17 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#18 [internal function]: SetController->actionTake('info', '1')
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#23 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#24 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#30 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#31 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#32 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#33 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/29 19:04:38 [error] [exception.CException] exception 'CException' with message 'Property "UserInfoForm.english_prof" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\helpers\CHtml.php(2044): CComponent->__get('english_prof')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\helpers\CHtml.php(1774): CHtml::resolveValue(Object(UserInfoForm), 'english_prof')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\helpers\CHtml.php(1205): CHtml::activeInputField('text', Object(UserInfoForm), 'english_prof', Array)
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\widgets\CActiveForm.php(575): CHtml::activeTextField(Object(UserInfoForm), 'english_prof', Array)
+#4 C:\xampp\htdocs\master\protected\views\user\infoForm.php(31): CActiveForm->textField(Object(UserInfoForm), 'english_prof')
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/user/infoForm', Array, true)
+#9 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('/user/infoForm', Array)
+#10 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#13 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#14 [internal function]: WizardBehavior->process('info')
+#15 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#16 [internal function]: CComponent->__call('process', Array)
+#17 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#18 [internal function]: SetController->actionTake('info', '1')
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#23 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#24 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#30 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#31 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#32 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#33 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/29 19:29:04 [error] [php] include(ETooltip.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\xampp\htdocs\yii-1.1.10\framework\YiiBase.php:418)
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWidgetFactory.php(147): import()
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(147): CWidgetFactory->createWidget()
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(173): SetController->createWidget()
+#3 C:\xampp\htdocs\master\protected\views\user\infoForm.php(15): SetController->widget()
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require()
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): SetController->renderInternal()
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): SetController->renderFile()
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): SetController->renderPartial()
+#8 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): SetController->render()
+#9 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep()
+#10 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): WizardBehavior->raiseEvent()
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep()
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#13 unknown(0): WizardBehavior->process()
+#14 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array()
+#15 unknown(0): SetController->__call()
+#16 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process()
+#17 unknown(0): SetController->actionTake()
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs()
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): SetController->runAction()
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#23 C:\xampp\htdocs\master\protected\components\Controller.php(42): RightsFilter->filter()
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): SetController->filterRights()
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): SetController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): SetController->run()
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\master\index.php(13): CWebApplication->run()
+REQUEST_URI=/master/set/take/1?step=info
+in C:\xampp\htdocs\master\protected\views\user\infoForm.php (15)
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (137)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+2012/04/29 19:31:10 [error] [php] include(ETooltip.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\xampp\htdocs\yii-1.1.10\framework\YiiBase.php:418)
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWidgetFactory.php(147): import()
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(147): CWidgetFactory->createWidget()
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(173): SetController->createWidget()
+#3 C:\xampp\htdocs\master\protected\views\user\infoForm.php(15): SetController->widget()
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require()
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): SetController->renderInternal()
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): SetController->renderFile()
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): SetController->renderPartial()
+#8 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): SetController->render()
+#9 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep()
+#10 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): WizardBehavior->raiseEvent()
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep()
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#13 unknown(0): WizardBehavior->process()
+#14 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array()
+#15 unknown(0): SetController->__call()
+#16 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process()
+#17 unknown(0): SetController->actionTake()
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs()
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): SetController->runAction()
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#23 C:\xampp\htdocs\master\protected\components\Controller.php(42): RightsFilter->filter()
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): SetController->filterRights()
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): SetController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): SetController->run()
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\master\index.php(13): CWebApplication->run()
+REQUEST_URI=/master/set/take/1?step=info
+in C:\xampp\htdocs\master\protected\views\user\infoForm.php (15)
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (137)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+2012/04/29 19:32:27 [error] [exception.CException] exception 'CException' with message 'Alias "ext.ETooltip" is invalid. Make sure it points to an existing PHP file.' in C:\xampp\htdocs\yii-1.1.10\framework\YiiBase.php:318
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWidgetFactory.php(147): YiiBase::import('ext.ETooltip', true)
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(147): CWidgetFactory->createWidget(Object(SetController), 'ext.ETooltip', Array)
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(173): CBaseController->createWidget('ext.ETooltip', Array)
+#3 C:\xampp\htdocs\master\protected\views\user\infoForm.php(15): CBaseController->widget('ext.ETooltip', Array)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/user/infoForm', Array, true)
+#8 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('/user/infoForm', Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#10 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#13 [internal function]: WizardBehavior->process('info')
+#14 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#15 [internal function]: CComponent->__call('process', Array)
+#16 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#17 [internal function]: SetController->actionTake('info', '1')
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#23 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#30 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#32 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/29 19:59:48 [error] [exception.CException] exception 'CException' with message 'Property "ETooltip.position" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:174
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWidgetFactory.php(162): CComponent->__set('position', 'center right')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(147): CWidgetFactory->createWidget(Object(SetController), 'ext.ETooltip.ET...', Array)
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(173): CBaseController->createWidget('ext.ETooltip.ET...', Array)
+#3 C:\xampp\htdocs\master\protected\views\user\infoForm.php(16): CBaseController->widget('ext.ETooltip.ET...', Array)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/user/infoForm', Array, true)
+#8 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('/user/infoForm', Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#10 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#11 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#12 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#13 [internal function]: WizardBehavior->process('info')
+#14 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#15 [internal function]: CComponent->__call('process', Array)
+#16 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#17 [internal function]: SetController->actionTake('info', '1')
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#23 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#28 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#29 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#30 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#32 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/29 20:12:53 [error] [exception.CException] exception 'CException' with message 'Property "UserInfoForm.getLanguageOptions" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\views\user\infoForm.php(63): CComponent->__get('getLanguageOpti...')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/user/infoForm', Array, true)
+#5 C:\xampp\htdocs\master\protected\controllers\SetController.php(137): CController->render('/user/infoForm', Array)
+#6 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#7 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#8 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#9 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#10 [internal function]: WizardBehavior->process('info')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#12 [internal function]: CComponent->__call('process', Array)
+#13 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('info')
+#14 [internal function]: SetController->actionTake('info', '1')
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#20 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#27 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#28 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#29 {main}
+REQUEST_URI=/master/set/take/1?step=info
+HTTP_REFERER=http://localhost/master/set/take/1?step=4
+---
+2012/04/30 14:41:50 [warning] [application] Failed to set unsafe attribute "englishProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:41:50 [warning] [application] Failed to set unsafe attribute "germanProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:42:03 [warning] [application] Failed to set unsafe attribute "englishProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:42:03 [warning] [application] Failed to set unsafe attribute "germanProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:42:03 [error] [php] Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:794) (C:\xampp\htdocs\yii-1.1.10\framework\web\CHttpRequest.php:716)
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(454): SetController->redirect()
+#1 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(410): WizardBehavior->redirect()
+#2 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(241): WizardBehavior->nextStep()
+#3 unknown(0): WizardBehavior->process()
+#4 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array()
+#5 unknown(0): SetController->__call()
+#6 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process()
+#7 unknown(0): SetController->actionTake()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs()
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams()
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): SetController->runAction()
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#13 C:\xampp\htdocs\master\protected\components\Controller.php(42): RightsFilter->filter()
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): SetController->filterRights()
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): SetController->runActionWithFilters()
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): SetController->run()
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#21 C:\xampp\htdocs\master\index.php(13): CWebApplication->run()
+REQUEST_URI=/master/set/take/1?step=info
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (454)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (410)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (241)
+2012/04/30 14:43:34 [warning] [application] Failed to set unsafe attribute "englishProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:43:34 [warning] [application] Failed to set unsafe attribute "germanProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:43:34 [error] [php] Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:794) (C:\xampp\htdocs\yii-1.1.10\framework\web\CHttpRequest.php:716)
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(454): SetController->redirect()
+#1 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(410): WizardBehavior->redirect()
+#2 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(241): WizardBehavior->nextStep()
+#3 unknown(0): WizardBehavior->process()
+#4 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array()
+#5 unknown(0): SetController->__call()
+#6 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process()
+#7 unknown(0): SetController->actionTake()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs()
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams()
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): SetController->runAction()
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#13 C:\xampp\htdocs\master\protected\components\Controller.php(42): RightsFilter->filter()
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): SetController->filterRights()
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): SetController->runActionWithFilters()
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): SetController->run()
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#21 C:\xampp\htdocs\master\index.php(13): CWebApplication->run()
+REQUEST_URI=/master/set/take/1?step=info
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (454)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (410)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (241)
+2012/04/30 14:45:56 [warning] [application] Failed to set unsafe attribute "englishProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:45:56 [warning] [application] Failed to set unsafe attribute "germanProf" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:49:40 [warning] [application] Failed to set unsafe attribute "lgeNative" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (366)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:49:40 [warning] [application] Failed to set unsafe attribute "englishProf" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (366)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:49:40 [warning] [application] Failed to set unsafe attribute "germanProf" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (366)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:49:40 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (366)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:49:40 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (366)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:54:20 [warning] [application] Failed to set unsafe attribute "prof_english" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:54:20 [warning] [application] Failed to set unsafe attribute "prof_german" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:54:42 [warning] [application] Failed to set unsafe attribute "prof_english" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:54:42 [warning] [application] Failed to set unsafe attribute "prof_german" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:54:53 [warning] [application] Failed to set unsafe attribute "prof_english" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:54:53 [warning] [application] Failed to set unsafe attribute "prof_german" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:55:19 [warning] [application] Failed to set unsafe attribute "prof_english" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:55:19 [warning] [application] Failed to set unsafe attribute "prof_german" of "UserInfoForm".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (130)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 14:56:44 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:56:44 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:56:44 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:56:44 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 14:56:44 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:00:58 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:00:58 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:00:58 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:00:58 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:00:58 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:08:09 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:08:09 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:08:09 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:08:09 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:08:09 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:09:42 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:09:42 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:09:42 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:09:42 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:09:42 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:10:41 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:10:41 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:10:41 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:10:41 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:10:41 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:13:57 [error] [exception.CException] exception 'CException' with message 'Property "User.setAttributes" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:174
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\db\ar\CActiveRecord.php(160): CComponent->__set('setAttributes', Array)
+#1 C:\xampp\htdocs\master\protected\controllers\SetController.php(369): CActiveRecord->__set('setAttributes', Array)
+#2 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizFinished(Object(WizardEvent))
+#3 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(692): CComponent->raiseEvent('onFinished', Object(WizardEvent))
+#4 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(631): WizardBehavior->onFinished(Object(WizardEvent))
+#5 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(229): WizardBehavior->finished(true)
+#6 [internal function]: WizardBehavior->process('')
+#7 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#8 [internal function]: CComponent->__call('process', Array)
+#9 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('')
+#10 [internal function]: SetController->actionTake('', '1')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#13 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#16 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#23 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#24 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/master/set/take/1?step=
+HTTP_REFERER=http://localhost/master/set/take/1?step=info
+---
+2012/04/30 15:14:33 [warning] [application] Failed to set unsafe attribute "lge_native" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:14:33 [warning] [application] Failed to set unsafe attribute "prof_english" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:14:33 [warning] [application] Failed to set unsafe attribute "prof_german" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:14:33 [warning] [application] Failed to set unsafe attribute "age" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:14:33 [warning] [application] Failed to set unsafe attribute "occupation" of "User".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (369)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (692)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (631)
+2012/04/30 15:40:32 [error] [exception.CException] exception 'CException' with message 'Property "RWebUser.isAdmin" is not defined.' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\auth\CWebUser.php(141): CComponent->__get('isAdmin')
+#1 C:\xampp\htdocs\master\protected\views\site\index.php(12): CWebUser->__get('isAdmin')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', NULL, true)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', NULL, true)
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#6 C:\xampp\htdocs\master\protected\controllers\SiteController.php(39): CController->render('index')
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#11 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#13 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#15 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('index')
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#18 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#19 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/master/site/index
+HTTP_REFERER=http://localhost/master/set/take/1?step=
+---
+2012/04/30 15:50:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "create".' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:484
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(271): CController->missingAction('create')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('create')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('site/create')
+#3 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/master/site/create
+HTTP_REFERER=http://localhost/master/site/index
+---
+2012/04/30 15:50:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "create".' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:484
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(271): CController->missingAction('create')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('create')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('site/create')
+#3 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/master/site/create
+HTTP_REFERER=http://localhost/master/site/index
+---
+2012/04/30 15:54:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "taskComplete/index".' in C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php:280
+Stack trace:
+#0 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('taskComplete/in...')
+#1 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/master/taskComplete/index
+HTTP_REFERER=http://localhost/master/site/index
+---
+2012/04/30 16:20:20 [error] [exception.CException] exception 'CException' with message 'CActiveForm and its behaviors do not have a method or closure named "hint".' in C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php:266
+Stack trace:
+#0 [internal function]: CComponent->__call('hint', Array)
+#1 C:\xampp\htdocs\master\protected\views\tasks\taskComplete\take.php(38): CActiveForm->hint(Object(TaskComplete), 'missing')
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#4 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(783): CController->renderPartial('/tasks/taskComp...', Array, true)
+#6 C:\xampp\htdocs\master\protected\controllers\SetController.php(177): CController->render('/tasks/taskComp...', Array)
+#7 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(559): SetController->quizProcessStep(Object(WizardEvent))
+#8 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(700): CComponent->raiseEvent('onProcessStep', Object(WizardEvent))
+#9 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(653): WizardBehavior->onProcessStep(Object(WizardEvent))
+#10 C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php(238): WizardBehavior->processStep()
+#11 [internal function]: WizardBehavior->process('2')
+#12 C:\xampp\htdocs\yii-1.1.10\framework\base\CComponent.php(261): call_user_func_array(Array, Array)
+#13 [internal function]: CComponent->__call('process', Array)
+#14 C:\xampp\htdocs\master\protected\controllers\SetController.php(116): SetController->process('2')
+#15 [internal function]: SetController->actionTake('2', '1')
+#16 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SetController), Array)
+#17 C:\xampp\htdocs\yii-1.1.10\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SetController), Object(ReflectionMethod), Array)
+#18 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#21 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#23 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#25 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#27 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take')
+#28 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/master/set/take/1?step=2
+HTTP_REFERER=http://localhost/master/site/index
+---
+2012/04/30 16:42:45 [warning] [application] Failed to set unsafe attribute "id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:42:45 [warning] [application] Failed to set unsafe attribute "create_time" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:42:45 [warning] [application] Failed to set unsafe attribute "update_time" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:43:38 [warning] [application] Failed to set unsafe attribute "id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:43:38 [warning] [application] Failed to set unsafe attribute "create_time" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:43:38 [warning] [application] Failed to set unsafe attribute "update_time" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\tasks\TaskCompleteController.php (119)
+in C:\xampp\htdocs\master\protected\components\Controller.php (42)
+in C:\xampp\htdocs\master\index.php (13)
+2012/04/30 16:47:14 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:47:14 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:47:40 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:47:40 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:47:44 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:47:44 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:48:09 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 16:48:09 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:31 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:31 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:37 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:37 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:40 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:29:40 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:30:03 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:30:03 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 18:52:54 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php:337
+Stack trace:
+#0 C:\xampp\htdocs\master\protected\controllers\SetController.php(99): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(307): SetController->beforeAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\xampp\htdocs\master\protected\components\Controller.php(42): CFilter->filter(Object(CFilterChain))
+#5 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CInlineFilter.php(59): Controller->filterRights(Object(CFilterChain))
+#6 C:\xampp\htdocs\yii-1.1.10\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\xampp\htdocs\yii-1.1.10\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(276): CController->run('take')
+#10 C:\xampp\htdocs\yii-1.1.10\framework\web\CWebApplication.php(135): CWebApplication->runController('set/take/css/ui...')
+#11 C:\xampp\htdocs\yii-1.1.10\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\master\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/master/set/take/css/ui/green/jquery-ui.css
+HTTP_REFERER=http://localhost/master/set/take/2?step=info
+---
+2012/04/30 19:05:05 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:05:05 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:05:20 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:05:20 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:05:38 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:05:38 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:06:32 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:06:32 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:09:35 [warning] [application] Failed to set unsafe attribute "type" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)
+2012/04/30 19:09:35 [warning] [application] Failed to set unsafe attribute "task_id" of "TaskComplete".
+in C:\xampp\htdocs\master\protected\controllers\SetController.php (158)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (700)
+in C:\xampp\htdocs\master\protected\extensions\WizardBehavior.php (653)

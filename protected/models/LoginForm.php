@@ -89,4 +89,38 @@ class LoginForm extends CFormModel
 		else
 			return false;
 	}
+
+	/**
+	 * Creates a Facebook login or logout url
+	 * string $fbUser
+	 * @return string $url
+	 */
+	public function getFbLogLink($fbUser)
+	{
+		if ($fbUser && !Yii::app()->user->isGuest) {
+			$logType = 'logout';
+		} else if ($fbUser && Yii::app()->user->isGuest) {
+			$logType = 'login';
+		} else {
+			$logType = 'login';
+		}
+
+		if($logType == 'logout')
+		{
+			$params = array(
+				'next' => 'http://narretz.de/time/site/logout/'
+			);	
+			$url = Yii::app()->facebook->getLogoutUrl($params);		
+		} else if($logType == 'login')
+		{
+			$params = array(
+				'redirect_uri' => 'http://narretz.de/time/site/login?fbLogin=true'
+			);	
+			$url = Yii::app()->facebook->getLoginUrl($params);	
+		} else {
+			return false;
+		}
+		return $url;
+	}
 }
+

@@ -38,8 +38,8 @@ class TaskComplete extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, missing', 'required'),
-			array('missing', 'length', 'max'=>256),
+			array('text, missing, question', 'required', 'on' => 'createUpdate'),
+			array('missing, question', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, text, missing, create_time, update_time', 'safe', 'on'=>'search'),
@@ -67,7 +67,8 @@ class TaskComplete extends Model
 		return array(
 			'id' => 'ID',
 			'text' => 'Text',
-			'missing' => 'Model Solution',
+			'question' => 'Question',
+			'missing' => 'Response',
 			'create_time' => 'Creation Time',
 			'update_time' => 'Update Time',
 		);

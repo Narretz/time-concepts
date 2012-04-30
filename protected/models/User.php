@@ -11,6 +11,11 @@
  * @property string $type
  * @property string $last_login_time
  * @property string $create_time
+ * @property string $lge_native
+ * @property string $prof_english
+ * @property string $prof_german
+ * @property string $occupation
+ * @property int $age
  */
 class User extends CActiveRecord
 {
@@ -72,6 +77,11 @@ class User extends CActiveRecord
 			'type' => 'Type',
 			'last_login_time' => 'Last Login Time',
 			'create_time' => 'Create Time',
+			'lge_native' => 'Native Language',
+			'prof_english' => 'English Profiency',
+			'prof_german' => 'German Profiency',
+			'age' => 'Age',
+			'occupation' => 'Occupation',
 		);
 	}
 

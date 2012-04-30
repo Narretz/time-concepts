@@ -8,24 +8,14 @@ $this->breadcrumbs=array(
 <h1>Login</h1>
 
 <?php
-// Login or logout url will be needed depending on current user state.
-if ($fbUser) {
-  echo CHtml::link('Log out from Facebook', $logout_url); 
-} else if(Yii::app()->user->isGuest){
-  echo CHtml::link('Log in with Facebook', $login_url); 
-}
-
-CVarDumper::dump($_SESSION, 10, true);
-
-
-CVarDumper::dump($fbUser, 10, true);
-
 
 if(Yii::app()->user->isGuest)
 {
+
+  echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/fb.png" />', $url); 
 ?>
 
-<p>Please fill out the following form with your login credentials:</p>
+<p>Please fill out the following form with your login credentials. If you do not have an account yet, you can register here.</p>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -64,4 +54,26 @@ if(Yii::app()->user->isGuest)
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<?php }; ?>
+<?php 
+
+}
+
+if (!Yii::app()->user->isGuest && Yii::app()->user->type == 'native') {
+?>
+You are currently logged in. Click here to <?=CHtml::link('Log out', array('site/logout'))?>.
+
+<?php
+}
+
+// Login or logout url will be needed depending on current user state.
+if ($fbUser && !Yii::app()->user->isGuest && Yii::app()->user->type == 'fbUser') {
+?>
+
+You are currently logged in with Facebook. Click here to <?=CHtml::link('Log out', array('site/logout'))?>. You can also <?=CHtml::link('Log out from Facebook', $url);?>.
+
+<?php
+} 
+
+?>
+
+

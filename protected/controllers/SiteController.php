@@ -131,40 +131,36 @@ class SiteController extends Controller
 		}
 
 		//handle facebook login
-			$fbUser = Yii::app()->facebook->getUser();
+		$fbUser = Yii::app()->facebook->getUser();
 
-			if ($fbUser) {
-			  try {
-			    //Proceed knowing you have a logged in user who's authenticated.
-			    $user_profile = Yii::app()->facebook->api('/me');
-			    if(Yii::app()->user->isGuest)
-			    {
-				    if(!$this->loginFBUser($user_profile))
-				    {
-				    	$this->registerFBUser($user_profile);
-				    	
-				    }
-				}
-			  } catch (FacebookApiException $e) {
-			  	//throw $e;
-			    $fbUser = null;
-			  }
-			}
-		// Login or logout url will be needed depending on current user state.
 		if ($fbUser) {
-			$params = array(
-				'next' => 'http://narretz.de/time/site/logout/'
-			);
-		  $logout_url = Yii::app()->facebook->getLogoutUrl($params);
-		} else {
-			$params = array(
-				'redirect_uri' => 'http://narretz.de/time/site/login/'
-			);
-		  $login_url = Yii::app()->facebook->getLoginUrl($params);
+		  try {
+		    //Proceed knowing you have a logged in user who's authenticated.
+		    $user_profile = Yii::app()->facebook->api('/me');
+
+		  } catch (FacebookApiException $e) {
+		  	//throw $e;
+		    $fbUser = null;
+		  }
+		 }
+
+		if($fbUser && Yii::app()->user->isGuest && isset($_GET['fbLogin']))
+		{
+		    if(!$this->loginFBUser($user_profile))
+		    {
+		    	try{
+		    		$this->registerFBUser($user_profile);	
+		    	} catch (Exception $e) {
+		    		
+		    	}
+		    }
 		}
 
+		// Login or logout url will be needed depending on current user state.
+		$url = $model->getFbLogLink($fbUser);
+
 		// display the login form
-		$this->render('login',array('model'=>$model, 'fbUser' => $fbUser, 'login_url' => $login_url, 'logout_url' => $logout_url));
+		$this->render('login',array('model'=>$model, 'fbUser' => $fbUser, 'url' => $url));
 	}
 
 	/**
@@ -173,6 +169,7 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
+		Yii::app()->facebook->destroySession();
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
@@ -180,13 +177,14 @@ class SiteController extends Controller
 	{
 		$identity = new FbUserIdentity($user_profile['id']);
 		$identity->authenticate();
+		$identity->username = $user_profile['name'];
 
 		if($identity->errorCode===UserIdentity::ERROR_NONE)
 		{
 			$duration = 0;
 			if(Yii::app()->user->login($identity, $duration))
 			{
-				$this->refresh();
+				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
 		else if($identity->errorCode===UserIdentity::ERROR_USERNAME_INVALID)

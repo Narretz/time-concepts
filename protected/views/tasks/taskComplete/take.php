@@ -13,31 +13,49 @@ echo '<h3>'.$event->sender->getStepLabel($event->step).'</h3>';
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'text'); ?>
+		<?php echo $form->label($model,'text'); ?>
 		<?php echo $model->text;?>
 	</div>
 
+<?php if(!empty($model->question))
+{
+?>
+	<div class="row">
+		<?php echo $form->label($model,'question'); ?>
+		<?php echo $model->question;?>
+	</div>
+<?php
+}
+?>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'missing'); ?>
-		<?php echo $form->textField($model,'missing' ,array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->textArea($model,'missing',array('rows'=>2,'cols'=>50, 'maxlength' =>500)); ?>
+  		<p class="hint">Try to be concise; not more than one sentence. Enter the first thought you find appropriate.</p> 
 	</div>
 
+	<br />
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Next Question'); ?>
+	<?php
+	$this->widget('zii.widgets.jui.CJuiButton',
+		array(
+			'name'=>'submit',
+			'caption'=>'Next Question',
+			)
+	);
+	?>
 	</div>
 
 <?php $this->endWidget();
 
 //Yii::app()->session['var'] = 'value';
 
-//CVarDumper::dump(Yii::app()->getSession(), 10, true);
-
-CVarDumper::dump($_SESSION, 10, true);
+//CVarDumper::dump($model->scenario, 10, true);
+//CVarDumper::dump($_SESSION, 10, true);
 
 ?>
 

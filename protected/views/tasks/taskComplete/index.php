@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create TaskComplete', 'url'=>array('create')),
-	array('label'=>'Manage TaskComplete', 'url'=>array('admin')),
+	array('label'=>'Create Completition Tasks', 'url'=>array('create')),
+	array('label'=>'Manage Completion Tasks', 'url'=>array('admin')),
 );
 ?>
 

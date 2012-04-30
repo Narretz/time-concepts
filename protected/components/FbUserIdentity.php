@@ -23,11 +23,9 @@ private $_id;
 		$criteria->condition='username = :username';
 		$criteria->params=array( ':username'=> $this->username);	
 		$user = User::model()->find($criteria);
-
-		//$user=User::model()->findByAttributes(array('username'=>$this->username));
 		
 		
-		if($user === NULL) //user (email) does not exist
+		if($user === NULL) //user (fb id) does not exist
 		{
 		   $this->errorCode=self::ERROR_USERNAME_INVALID;
 		}
@@ -36,6 +34,7 @@ private $_id;
 			$this->errorCode=self::ERROR_NONE;
 			$this->_id = $user->id;
 			$this->username = $user->username;
+            $this->setState('type', 'fbUser');
 			$user->last_login_time = date('Y-m-d h:i:s');
 			$user->save();
 		}

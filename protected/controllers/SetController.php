@@ -72,7 +72,12 @@ class SetController extends Controller
 							$session['Quiz.types'][$task->id] = $task->getType($task->type);
 							$session['Quiz.steps']['Q'.($index+1)] = $task->id;
 							$steps['Q'.($index+1)] = $task->id;
-						}			
+						}
+
+						//add the user info form to the steps
+						$steps['Information'] = 'info';
+						$session['Quiz.steps']['Information'] = 'info';
+
 					} else {
 						$steps = $session['Quiz.steps'];
 					}
@@ -97,9 +102,11 @@ class SetController extends Controller
 				break;
 		}
 
-		if (!empty($config)) {
+		if (!empty($config) && !empty($steps)) {
 			$config['class']='application.extensions.WizardBehavior';
 			$this->attachBehavior('wizard', $config);
+		} else {
+			$this->invalidActionParams($this->getAction());	
 		}
 		return parent::beforeAction($action);
 	}
@@ -114,39 +121,64 @@ class SetController extends Controller
 	* @param WizardEvent The event
 	*/
 	public function quizProcessStep($event) {
-		$type= Yii::app()->session['Quiz.types'][$event->step];
-		$model = $type::model()->findByPk($event->step);
-		//empty the input the users have to make
-		$fields = array();
-		foreach ($model->getInput() as $attribute)
+		
+		if($event->step == 'info')
 		{
-			$fields[$attribute] = '';
-		}
-		$model->setAttributes($fields);
-		$model->attributes = $event->data;
-
-		//if we have input, validate and save the data in the wizard session
-		if(isset($_POST[$type]))
-		{
-			$model->attributes =  $_POST[$type];
-			if ($model->validate()) {
-				$data = array();
-				foreach ($model->getInput() as $attribute)
+			$model = new UserInfoForm;
+			if(isset($_POST['UserInfoForm']))
+			{
+				$model->attributes=$_POST['UserInfoForm'];
+				if($model->validate())
 				{
-					$data[$attribute] = $model->$attribute;
+					$event->sender->save($model->attributes);
+					$event->handled = true;
+				} else {
+					$this->render('/user/infoForm',array('model'=>$model, 'event' => $event));
 				}
+			} else {
+				$this->render('/user/infoForm',array('model'=>$model, 'event' => $event));
+			}
+			
+			
 
-				$data['type'] = $type;
-				$data['task_id'] = $event->step;
 
-				$event->sender->save($data);
-				$event->handled = true;
+		} else {
+			$type= Yii::app()->session['Quiz.types'][$event->step];
+			$model = $type::model()->findByPk($event->step);
+			//set the scenario, so we have different validation rules
+			$model->scenario = 'take';
+			//empty the input the users have to make
+			$fields = array();
+			foreach ($model->getInput() as $attribute)
+			{
+				$fields[$attribute] = '';
+			}
+			$model->setAttributes($fields);
+			//if the user input has been saved already, put it back in he form
+			$model->attributes = $event->data;
+
+			//if we have input, validate and save the data in the wizard session
+			if(isset($_POST[$type]))
+			{
+				$model->attributes =  $_POST[$type];
+				if ($model->validate()) {
+					$data = array();
+					foreach ($model->getInput() as $attribute)
+					{
+						$data[$attribute] = $model->$attribute;
+					}
+
+					$data['type'] = $type;
+					$data['task_id'] = $event->step;
+
+					$event->sender->save($data);
+					$event->handled = true;
+				} else {
+					$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
+				}
 			} else {
 				$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
 			}
-		}
-		else {
-			$this->render('/tasks/'. lcfirst($type). '/take', array('event' => $event, 'model' => $model));
 		}
 	}
 
@@ -312,17 +344,23 @@ class SetController extends Controller
 	public function quizFinished($event) {
 		$setId = $_GET['id'];
 		$userId = Yii::app()->user->id;
+
+		//Save the actual results, as stored in the session
 		foreach ($event->data as $result)
 		{
-			$modelType = $result['type'].'Result';
-			$model = new $modelType;
-			unset($result['type']);
-			$model->attributes = $result;
-			$model->user_id = $userId;
-			$model->set_id = $setId;
-			$model->save();
+			if(isset($result['task_id']))
+			{
+				$modelType = $result['type'].'Result';
+				$model = new $modelType;
+				unset($result['type']);
+				$model->attributes = $result;
+				$model->user_id = $userId;
+				$model->set_id = $setId;
+				$model->save();
+			}
 		}
 
+		//Save the information that identifies the user with the experiment (set)
 		$setUser = new SetUser;
 		$setUser->detachBehavior('CTimestampBehavior');
 		$setUser->set_id = $setId;
@@ -330,9 +368,19 @@ class SetController extends Controller
 		$setUser->completed = 1;
 		$setUser->tries = 1;
 		$setUser->save();
-		CVarDumper::dump($setUser->getErrors(), 10, true);
 
+		//Save the additional data the user may or not may have entered at the end of the experiment
+		if(!empty($event->data['info']))
+		{
+			$user = User::model()->findByPk($userId);
+			//We already validated the info in the form
+			$user->setAttributes($event->data['info'], false);
+			$user->save();
+		}
+
+		//Reset the quiz
 		$event->sender->reset();
+		//Unset the additional session data
 		unset(Yii::app()->session['Quiz.types']);
 		unset(Yii::app()->session['Quiz.steps']);
 		$this->render('/set/end', compact('event'));

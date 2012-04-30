@@ -35,7 +35,7 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new TaskComplete;
+		$model=new TaskComplete('createUpdate');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -60,6 +60,7 @@ class TaskCompleteController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$model->scenario('createUpdate');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

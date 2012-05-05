@@ -1,8 +1,6 @@
 <?php
 echo $event->sender->menu->run();
-echo '<div>Question '.$event->sender->currentStep.' of '.$event->sender->stepCount;
-
-echo '<h3>'.$event->sender->getStepLabel($event->step).'</h3>';
+echo '<h3>Question '.($event->sender->currentStep-1).' of '.($event->sender->stepCount-1).'</h3>';
 ?>
 
 <?php
@@ -29,9 +27,9 @@ Yii::app()->getClientScript()->registerScript('timeout', '
 <?php $this->renderPartial('/tasks/'. lcfirst($type). '/_take', array('event' => $event, 'model'=>$model));?>
 
 <?php
-
+/*
 CVarDumper::dump($event, 10, true);
 CVarDumper::dump($_POST, 10, true);
 CVarDumper::dump($_SESSION, 10, true);
-
+*/
 ?>

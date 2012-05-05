@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "Museo Slab 500";
+	src: url('MuseoSlab500/Museo_Slab_500.otf');
+}
+
 body
 {
 	margin: 0;
@@ -19,7 +24,8 @@ body
 {
 	margin: 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
+	float:left;
+
 }
 
 #content
@@ -43,19 +49,32 @@ body
 
 #logo
 {
-	padding: 10px 20px;
-	font-size: 200%;
+	color: #333333;
+	font-family: "Museo Slab 500", sans-serif;
+	padding: 10px 20px 5px 20px;
+	font-size: 220%;
 }
 
 #mainmenu
 {
-	background:white url(bg.gif) repeat-x left top;
+min-height:50px;
+border-top: 3px solid #8ab66b;
+background: rgb(127,175,79); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(127,175,79,1) 0%, rgba(115,173,57,1) 50%, rgba(103,176,33,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(127,175,79,1)), color-stop(50%,rgba(115,173,57,1)), color-stop(100%,rgba(103,176,33,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  rgba(127,175,79,1) 0%,rgba(115,173,57,1) 50%,rgba(103,176,33,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  rgba(127,175,79,1) 0%,rgba(115,173,57,1) 50%,rgba(103,176,33,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  rgba(127,175,79,1) 0%,rgba(115,173,57,1) 50%,rgba(103,176,33,1) 100%); /* IE10+ */
+background: linear-gradient(left,  rgba(127,175,79,1) 0%,rgba(115,173,57,1) 50%,rgba(103,176,33,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7faf4f', endColorstr='#67b021',GradientType=1 ); /* IE6-9 */
+
 }
 
 #mainmenu ul
 {
-	padding:6px 20px 5px 20px;
-	margin:0px;
+	padding:12px 20px 5px 20px;
+	margin:auto;
+	text-align: right;
 }
 
 #mainmenu ul li
@@ -75,7 +94,7 @@ body
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #6399cd;
+	color: #333333;
 	background-color:#EFF4FA;
 	text-decoration:none;
 }

@@ -44,6 +44,7 @@ foreach ($model->choiceAnswers as $i => $answer): ?>
 		<?php echo $form->labelEx($answer,"[$i]answer"); ?>
 		<?php echo $form->textField($answer,"[$i]answer",array('size'=>60,'maxlength'=>500)); ?>
 		<?php echo $form->error($answer,"[$i]answer"); ?>
+		<?php echo $form->hiddenField($answer, "[$i]id"); ?>
 	<?php if ($i > 1): ?>
 		<a href="#" onclick="$(this).parent().remove(); return false;">remove</a>
 	<?php endif; ?>

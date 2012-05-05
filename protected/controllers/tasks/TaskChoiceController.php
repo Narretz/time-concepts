@@ -69,7 +69,6 @@ class TaskChoiceController extends Controller
 		$model=new TaskChoice;
 		//2 Answers are the default
 		$model->choiceAnswers=array(new TaskChoiceAnswer, new TaskChoiceAnswer);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		
@@ -165,14 +164,45 @@ class TaskChoiceController extends Controller
 		if(isset($_POST['TaskChoice']))
 		{
 			$model->attributes=$_POST['TaskChoice'];
+			$toUpdate = array();
+			$fromForm = array();
+			foreach ($model->choiceAnswers as $old)
+			{
+				$toUpdate[] = $old->id;
+			}
+
+			foreach ($_POST['TaskChoiceAnswer'] as $new)
+			{
+				$fromForm[] = $new['id'];
+			}
+
+			//store the related models
+			$answers = $model->choiceAnswers;
+			//delete the linking table entries
+			Yii::app()->db->createCommand()->delete('task_choice_2_answer', 'task_choice_id = ?', array($model->id));
+
+			//CVarDumper::dump($model->choiceAnswers, 10, true);
 
 			foreach($_POST['TaskChoiceAnswer'] as $i => $answer)
 			{
-				if(isset($model->choiceAnswers[$i]))
+				foreach ($answers as $k => $old)
 				{
-					$model->choiceAnswers[$i]->attributes=$answer;
+					if($answer['id'] == $old->id)
+					{//exisiting answer
+						$old->attributes=$answer;
+					} else if (!in_array($answer['id'], $toUpdate))
+					{//new answer
+						$answers[$i] = new TaskChoiceAnswer;
+						$answers[$i]->attributes = $answer;
+					} else if(!in_array($old->id, $fromForm))
+						//previously existing answer is not in form
+						unset($answers[$k]);
 				}
 			}
+
+			$model->choiceAnswers = $answers;	
+
+			//CVarDumper::dump($model->choiceAnswers, 10, true);
 
 			if($model->withRelated->save(true, array('task', 'choiceAnswers')))
 					$this->redirect(array('view','id'=>$model->id));

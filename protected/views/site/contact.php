@@ -71,7 +71,13 @@ If you have any questions, please fill out the following form to contact me. Tha
 	<?php endif; ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
+<?php
+$this->widget('zii.widgets.jui.CJuiButton', array(
+		'id' => 'contact-submit',
+		'name'=>'submit',
+		'caption'=>'Send', 
+));
+?>
 	</div>
 
 <?php $this->endWidget(); ?>

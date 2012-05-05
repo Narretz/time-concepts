@@ -22,14 +22,15 @@ class TaskController extends Controller
 	public function actionView($id)
 	{
 		$model = Task::model()->findByPk($id);
+		
+		if($model===null)
+		{
+			throw new CHttpException(404, 'The requested task does not exist.');
+		}
 
-		$taskType = $model->type;
-
-		$taskType = 'TaskComplete';
+		$taskType = $this->getTaskType($model->type);
 
 		$taskDetail = $taskType::model()->findByPk($model->id);
-
-		//CVarDumper::dump($taskDetail, 10, true);
 
 		$this->render('view',array(
 			'model'=> $model,
@@ -109,12 +110,10 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		echo 'wtf';
-		/*
 		$dataProvider=new CActiveDataProvider('Task');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));*/
+		));
 	}
 
 	/**
@@ -155,6 +154,21 @@ class TaskController extends Controller
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
+		}
+	}
+
+	public function getTaskType($typeId){
+		
+		$types = array(
+				"1" => "TaskComplete",
+				"2" => "TaskChoice",
+			);
+
+		if (array_key_exists($typeId, $types))
+		{
+			return $types[$typeId];
+		} else {
+			return false;
 		}
 	}
 }

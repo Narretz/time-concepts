@@ -35,16 +35,20 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new TaskComplete('createUpdate');
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model = new TaskComplete;
+		$model->scenario = 'create';
 
 		if(isset($_POST['TaskComplete']))
-		{
-			$model->attributes=$_POST['TaskComplete'];
-			if($model->save())
+		{		
+			$model->attributes = $_POST['TaskComplete'];
+
+			$model->task = new Task;
+			$model->task->type = 1;
+
+			if($model->withRelated->save(true, array('task')))
+			{
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -60,7 +64,7 @@ class TaskCompleteController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$model->scenario('createUpdate');
+		$model->scenario = 'update';
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -68,7 +72,7 @@ class TaskCompleteController extends Controller
 		if(isset($_POST['TaskComplete']))
 		{
 			$model->attributes=$_POST['TaskComplete'];
-			if($model->save())
+			if($model->withRelated->save(true, array('task')))
 				$this->redirect(array('view','id'=>$model->id));
 		}
 

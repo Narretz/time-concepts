@@ -9,6 +9,11 @@ class SiteController extends Controller
 	   ); 
 	} 
 
+	public function allowedActions() 
+	{ 
+	   return 'captcha'; 
+	} 
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -73,60 +78,45 @@ class SiteController extends Controller
 		$this->render('contact',array('model'=>$model));
 	}
 
-	/**
-	 * Displays the register page
-	 */
-
-	public function actionRegister(){
-		$model = new RegisterForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='register-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['RegisterForm']))
-		{
-			$model->attributes=$_POST['RegisterForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->register() && $model->login())
-			{
-				$this->redirect(Yii::app()->user->returnUrl);
-
-			}
-		}
-		// display the login form
-		$this->render('register',array('model'=>$model));
-	} 
-
 
 	/**
-	 * Displays the login page
+	 * Displays the login / register page
 	 */
 	public function actionLogin()
 	{
+		$model = new LoginRegisterForm;
 
-		$model=new LoginForm;
-
+		//CVarDumper::dump($_POST, 10, true);
 		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='login-register-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 
 		// collect user input data
-		if(isset($_POST['LoginForm']))
+		if(isset($_POST['LoginRegisterForm']))
 		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if(Yii::app()->user->isGuest && $model->validate() && $model->login())
-			{
-				$this->redirect(Yii::app()->user->returnUrl);
+			$model->attributes=$_POST['LoginRegisterForm'];
 
+			if($_POST['yt1'] === 'Login')
+			{
+				$model->scenario = 'login';
+				// validate user input and redirect to the previous page if valid
+				if(Yii::app()->user->isGuest && $model->validate() && $model->login())
+				{
+					$this->redirect(Yii::app()->user->returnUrl);
+				}
+			}
+
+			if($_POST['yt0'] === 'Register')
+			{
+				// validate user input and redirect to the previous page if valid
+				if($model->validate() && $model->register() && $model->login())
+				{
+					$this->redirect(Yii::app()->user->returnUrl);
+
+				}
 			}
 		}
 
@@ -160,7 +150,7 @@ class SiteController extends Controller
 		$url = $model->getFbLogLink($fbUser);
 
 		// display the login form
-		$this->render('login',array('model'=>$model, 'fbUser' => $fbUser, 'url' => $url));
+		$this->render('loginRegister',array('model'=>$model, 'fbUser' => $fbUser, 'url' => $url));
 	}
 
 	/**

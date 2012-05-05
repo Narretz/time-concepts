@@ -37,12 +37,23 @@ class Task extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, create_time, update_time', 'required'),
+			array('type', 'required'),
 			array('type', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, create_time, update_time', 'safe', 'on'=>'search'),
 		);
+	}
+
+
+	public function behaviors()
+	{
+	    return array_merge(parent::behaviors(), array(
+	        'withRelated'=>array(
+	            'class'=>'ext.with-related-behavior.WithRelatedBehavior',
+		        ),
+		    )
+	    );
 	}
 
 	/**
@@ -53,7 +64,8 @@ class Task extends Model
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tasks_complete' => array(self::HAS_MANY, 'TaskComplete', 'id'),
+			'taskComplete' => array(self::HAS_ONE, 'TaskComplete', 'id'),
+			'taskChoice' => array(self::HAS_ONE, 'TaskChoice', 'id'),			
 		);
 	}
 
@@ -91,7 +103,7 @@ class Task extends Model
 		));
 	}
 
-	protected $types = array('1' => 'TaskComplete');
+	protected $types = array('1' => 'TaskComplete', '2' => 'TaskChoice');
 
 	public function getType($typeId){
 		return $this->types[$typeId];

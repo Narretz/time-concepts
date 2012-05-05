@@ -30,6 +30,16 @@ class TaskComplete extends Model
 		return 'task_complete';
 	}
 
+	public function behaviors()
+	{
+	    return array_merge(parent::behaviors(), array(
+	        'withRelated'=>array(
+	            'class'=>'ext.with-related-behavior.WithRelatedBehavior',
+		        ),
+		    )
+	    );
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -38,11 +48,13 @@ class TaskComplete extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, missing, question', 'required', 'on' => 'createUpdate'),
+			array('text, missing, question', 'required', 'on' => 'create, update'),
 			array('missing, question', 'length', 'max'=>500),
+			array('description', 'safe', 'on' => 'create, update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, text, missing, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id', 'safe', 'on' => 'take'),
 		);
 	}
 
@@ -56,6 +68,7 @@ class TaskComplete extends Model
         return array(
             'sets'=>array(self::MANY_MANY, 'Set',
                 'sets_to_tasks(set_id, task_id)'),
+            'task' =>array(self::BELONGS_TO, 'Task', 'id'),
         );
 	}
 
@@ -68,6 +81,7 @@ class TaskComplete extends Model
 			'id' => 'ID',
 			'text' => 'Text',
 			'question' => 'Question',
+			'description' => 'Description',
 			'missing' => 'Response',
 			'create_time' => 'Creation Time',
 			'update_time' => 'Update Time',
@@ -104,5 +118,36 @@ class TaskComplete extends Model
 	public function getInput()
 	{
 		return array('missing');
+	}
+
+	public function prepareTask($event){
+		//set the scenario, so we have different validation rules
+		$this->scenario = 'take';
+		//empty the input the users have to make
+		$fields = array();
+		foreach ($this->getInput() as $attribute)
+		{
+			$fields[$attribute] = '';
+		}
+
+		$this->setAttributes($fields);
+		//if the user input has been saved already, put it back in he form
+		$this->attributes = $event->data;
+	}	
+
+	public function handleQuizInput($post)
+	{
+		//CVarDumper::dump($post, 10, true);
+		$this->attributes =  $post['TaskComplete'];
+		if ($this->validate()) {
+			$data = array();
+			foreach ($this->getInput() as $attribute)
+			{
+				$data[$attribute] = $this->$attribute;
+			}
+			return $data;
+		} else {
+			return false;
+		}
 	}
 }

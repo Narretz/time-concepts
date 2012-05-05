@@ -19,7 +19,9 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'description',
 		'text',
+		'question',
 		'missing',
 		'create_time',
 		'update_time',

@@ -39,7 +39,7 @@ class TaskCompleteResult extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('task_id, user_id, missing', 'required'),
+			array('task_id, user_id', 'required'),
 			array('task_id, user_id', 'numerical', 'integerOnly'=>true),
 			array('missing', 'length', 'max'=>256),
 			// The following rule is used by search().

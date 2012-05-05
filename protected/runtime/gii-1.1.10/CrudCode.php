@@ -1,5 +1,5 @@
 <?php
 return array (
-  'template' => 'default',
+  'template' => 'new_order',
   'baseControllerClass' => 'Controller',
 );

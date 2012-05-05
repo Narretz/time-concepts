@@ -16,6 +16,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>3, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'description'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'question'); ?>
 		<?php echo $form->textField($model,'question',array('size'=>90, 'maxlength'=>500)); ?>
 		<?php echo $form->error($model,'question'); ?>

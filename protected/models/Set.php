@@ -54,8 +54,8 @@ class Set extends Model
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
         return array(
-            'setUsers'=>array(self::HAS_MANY, 'SetUser', 'set_id'
-                ),
+            'setUsers'=>array(self::HAS_MANY, 'SetUser', 'set_id'),
+            'userCount'=>array(self::STAT, 'SetUser', 'set_id'),
             'tasks' =>array(self::MANY_MANY, 'Task', 
             	'sets_to_tasks(set_id, task_id)'),
         );
@@ -72,6 +72,7 @@ class Set extends Model
 			'description' => 'Description',
 			'create_time' => 'Creation Time',
 			'update_time' => 'Update Time',
+			'userCount' => 'Users of this Set'
 		);
 	}
 
@@ -94,6 +95,7 @@ class Set extends Model
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array('pageSize' => 2),
 		));
 	}
 }

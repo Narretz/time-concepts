@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'tasks':
  * @property integer $id
+ * @property var $title
  * @property integer $type
  * @property string $create_time
  * @property string $update_time
@@ -41,7 +42,7 @@ class Task extends Model
 			array('type', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, type, title, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +66,9 @@ class Task extends Model
 		// class name for the relations automatically generated below.
 		return array(
 			'taskComplete' => array(self::HAS_ONE, 'TaskComplete', 'id'),
-			'taskChoice' => array(self::HAS_ONE, 'TaskChoice', 'id'),			
+			'taskChoice' => array(self::HAS_ONE, 'TaskChoice', 'id'),
+			'set' => array(self::MANY_MANY, 'Set',
+				'sets_to_tasks(task_id, set_id)'),		
 		);
 	}
 
@@ -77,6 +80,7 @@ class Task extends Model
 		return array(
 			'id' => 'ID',
 			'type' => 'Type',
+			'title' => 'Title',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 		);
@@ -93,10 +97,12 @@ class Task extends Model
 
 		$criteria=new CDbCriteria;
 
+		//problematic: type refers to different models. How do I search for that in a gridview?
+		$criteria->with = array('taskChoice', 'taskChoice.choiceAnswers');
 		$criteria->compare('id',$this->id);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('update_time',$this->update_time,true);
+		$criteria->compare('t.create_time',$this->create_time,true);
+		$criteria->compare('t.update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

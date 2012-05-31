@@ -6,18 +6,23 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'text'); ?>
-		<?php echo $form->textArea($model,'text',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->label($model,'user_id'); ?>
+		<?php echo $form->textField($model,'user_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'question'); ?>
-		<?php echo $form->textArea($model,'question',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->label($model,'task_id'); ?>
+		<?php echo $form->textField($model,'task_id'); ?>
 	</div>
-textArea
+
+	<div class="row">
+		<?php echo $form->label($model,'set_id'); ?>
+		<?php echo $form->textField($model,'set_id'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->label($model,'missing'); ?>
-		<?php echo $form->textArea($model,'missing',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->textField($model,'missing',array('size'=>60,'maxlength'=>256)); ?>
 	</div>
 
 	<div class="row">

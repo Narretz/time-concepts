@@ -1,11 +1,11 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - Login / Register';
 $this->breadcrumbs=array(
-	'Login',
+	'Login / Register',
 );
 ?>
 
-<h1>Login</h1>
+<h1>Login / Register</h1>
 
 <?php
 if(Yii::app()->user->isGuest)
@@ -15,13 +15,13 @@ if(Yii::app()->user->isGuest)
 <div style="float: right; width: 470px; margin-left: 30px">
 	<p>You can also log in with your Facebook account. You will be redirected to Facebook and asked to authorize this website. No other information than what you share publicy on Facebook will be needed.</p>
 
-	<p>
+
+	 <p class="hint"><strong>After you authorized the app on Facebook, it is possible that you will be redirected to this page. In this case, click again on "Connect" to begin the study.</strong></p>
+	 <p>
 	<?php
 	  echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/fb.png" />', $url); 
 	?>
-	</p>
-
-	 <p class="hint">If you are not currently logged in with Facebook, you might have to click the "Connect"-Button twice.</p> 
+	</p> 
 
 </div>
 
@@ -33,7 +33,7 @@ if(Yii::app()->user->isGuest)
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-reister-form',
+	'id'=>'login-register-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
@@ -53,12 +53,6 @@ if(Yii::app()->user->isGuest)
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
 
 	<div class="row buttons">

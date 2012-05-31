@@ -1,19 +1,20 @@
 <?php
 $this->breadcrumbs=array(
-	'Task Choices'=>array('index'),
+	'Choice Tasks'=>array('index'),
 	$model->title,
 );
 
 $this->menu=array(
-	array('label'=>'List TaskChoice', 'url'=>array('index')),
-	array('label'=>'Create TaskChoice', 'url'=>array('create')),
-	array('label'=>'Update TaskChoice', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete TaskChoice', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage TaskChoice', 'url'=>array('admin')),
+	array('label'=>'List Choice Tasks', 'url'=>array('index')),
+	array('label'=>'Create Choice Task', 'url'=>array('create')),
+	array('label'=>'Update Choice Task', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete Choice Task', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Choice Task Results', 'url'=>array('result', 'id'=>$model->id)),
+	array('label'=>'Manage Choice Tasks', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View TaskChoice #<?php echo $model->id; ?></h1>
+<h1>View Choice Task #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

@@ -42,7 +42,7 @@ class SetUser extends Model
 			array('set_id, user_id, completed, tries', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, set_id, user_id, completed, tries', 'safe', 'on'=>'search'),
+			array('id, set_id, user_id, completed, tries, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 

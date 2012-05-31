@@ -214,6 +214,32 @@ class TaskChoiceController extends Controller
 	}
 
 	/**
+	 * Displays Results for a single task.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionResult($id)
+	{
+		$crit = new CDbCriteria;
+		$crit->params=array(':id'=> $id);
+		$crit->condition='t.id=:id';
+		$crit->with = 'choiceAnswers';
+		$model = TaskChoice::model()->find($crit);
+
+		//model instance to provide filter / search function for results
+		$result = new TaskChoiceResult('search');
+		$result->unsetAttributes(); //clear any default values
+		$result->task_id = $id; //but restrain the results to the id of the current task
+
+		if(isset($_GET['TaskChoiceResult']))
+			$result->attributes=$_GET['TaskChoiceResult'];
+
+		$this->render('result',array(
+			'model'=>$model,
+			'result' => $result,
+		));
+	}
+
+	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded

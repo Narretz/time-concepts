@@ -30,7 +30,7 @@ private $_id;
 		{
 		   $this->errorCode=self::ERROR_USERNAME_INVALID;
 		}
-		else if($user->password !== hash('sha256', $this->password)) //wrong password
+		else if($user->password != hash('sha256', $this->password)) //wrong password
 		{
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 

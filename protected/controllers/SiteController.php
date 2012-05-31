@@ -11,7 +11,7 @@ class SiteController extends Controller
 
 	public function allowedActions() 
 	{ 
-	   return 'captcha'; 
+	   return 'captcha, page'; 
 	} 
 
 	/**
@@ -141,7 +141,7 @@ class SiteController extends Controller
 		    	try{
 		    		$this->registerFBUser($user_profile);	
 		    	} catch (Exception $e) {
-		    		
+		    		throw $e;
 		    	}
 		    }
 		}
@@ -161,6 +161,14 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		Yii::app()->facebook->destroySession();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionInfo(){
+
+		CVarDumper::dump($_POST, 10, true);
+		$form = new UserInfoForm;
+
+		$this->render('/user/infoForm', array('model' => $form));
 	}
 
 	public function loginFBUser($user_profile)

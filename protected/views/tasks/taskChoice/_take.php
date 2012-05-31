@@ -27,7 +27,9 @@
 
 <?php endif;?>
 
+<div class="quizRadio">
 <?php echo CHtml::activeRadioButtonList($model->results, 'answer', $model->getRadioAnswers());?>
+</div>
 
 	<br />
 

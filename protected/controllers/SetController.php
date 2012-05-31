@@ -41,14 +41,20 @@ class SetController extends Controller
 				//get the get parameters and load the associated model to prepare the steps
 				if(isset($_GET['id']))
 				{
+					if(Yii::app()->user->isGuest)
+					{
+						Yii::app()->user->setReturnUrl(Yii::app()->baseUrl.'/set/take/id/'.$_GET['id'].'?step=');
+						$this->redirect(array('site/login'));
+					}
+					//check if the user has access to the quiz
 					$criteriaAccess = new CDbCriteria;
 					$criteriaAccess->params=array(':id'=> $_GET['id'], ':user_id' => Yii::app()->user->id);
 					$criteriaAccess->condition='user_id=:user_id AND set_id=:id';
 					$setUser = SetUser::model()->find($criteriaAccess);
 
-					if(!Yii::app()->user->checkAccess('Set.Take', array('completed'=>$setUser->completed)))
+					if($setUser && !Yii::app()->user->checkAccess('Set.Take', array('completed'=>$setUser->completed)))
 					{
-						$this->accessDenied();
+						throw new CHttpException('403', 'You have already finished this part of the study.');
 					}
 
 					$steps = array();
@@ -56,7 +62,7 @@ class SetController extends Controller
 
 					//When step is empty, this means wizard start
 					//Fetch relevant set data and save it in the session so we do not have to query the db on every page request
-					if(empty($_GET['step']))
+					if(empty($_GET['step']) || $_GET['step'] != $session['Quiz.start']['id'])
 					{	
 						$setId=$_GET['id'];
 						$criteria = new CDbCriteria;
@@ -66,8 +72,12 @@ class SetController extends Controller
 						$criteria->together=true;
 						$model = Set::model()->find($criteria);
 
+						if(empty($model))
+							throw new CHttpException('404', 'The page you search for does not exist');		
+
 						$session['Quiz.start'] = new CMap;
 						$session['Quiz.start']['text'] = $model->description;
+						$session['Quiz.start']['id'] = $model->id;
 						$steps['Start'] = 'start';
 
 						$session['Quiz.types'] = new CMap;
@@ -91,6 +101,7 @@ class SetController extends Controller
 						if($setId == 1 || $setId == 3)
 							$info = false;
 
+						//if the user had already entered his details, don't show the info form
 						foreach($user->attributes as $attr => $val)
 						{
 							if(in_array($attr, $prop))
@@ -230,7 +241,10 @@ class SetController extends Controller
 		$setId = $_GET['id'];
 		$userId = Yii::app()->user->id;
 
-		//Save the actual results, as stored in the session
+		//mail body
+		$body;
+
+		//Save the actual results, as stored in the session		
 		foreach ($event->data as $result)
 		{
 			if(is_array($result) && isset($result['task_id']))
@@ -238,16 +252,31 @@ class SetController extends Controller
 				$modelType = $result['type'].'Result';
 				$model = new $modelType;
 				unset($result['type']);
+				//set task_id and specific result data
 				$model->attributes = $result;
 				$model->user_id = $userId;
 				$model->set_id = $setId;
-				$model->save();
+				try {
+					$model->save();
+				} catch (Exception $e) {
+					throw $e;
+				}
+
+				$body .= "Task Id:". $result['task_id']."\n";
+				
+				if(isset($result['answer']))
+					$body .= "Answer Id:". $result['answer']."\n";
+
+				if(isset($result['missing']))
+					$body .= "Answer:". $result['missing']."\n";
+
+				$body .= "\n";
+
 			}
 		}
 
 		//Save the information that identifies the user with the experiment (set)
 		$setUser = new SetUser;
-		$setUser->detachBehavior('CTimestampBehavior');
 		$setUser->set_id = $setId;
 		$setUser->user_id = $userId;
 		$setUser->completed = 1;
@@ -266,8 +295,13 @@ class SetController extends Controller
 		//Reset the quiz
 		$event->sender->reset();
 		//Unset the additional session data
+		unset(Yii::app()->session['Quiz.start']);
 		unset(Yii::app()->session['Quiz.types']);
 		unset(Yii::app()->session['Quiz.steps']);
+
+		$subject = $userId.' just finished the set with the id '.$setId;
+
+		mail(Yii::app()->params['adminEmail'],$subject,$body);
 
 		if($setId == 1 || $setId == 3)
 		{
@@ -276,9 +310,8 @@ class SetController extends Controller
 		}
 		else
 		{
-			$this->render('/set/end', compact('event'));
+			$this->render('/set/end', array(compact('event'), "setId" => $setId));
 		}
-
 		Yii::app()->end();
 
 }
@@ -324,7 +357,7 @@ class SetController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
+		// Uncomment the @following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Set']))
@@ -393,14 +426,23 @@ class SetController extends Controller
 	public function actionView($id)
 	{
 		//Load the model together with its relations
-		$model = Set::model()->findByPk($id)->with(array('tasks'));
+		$model = Set::model()->findByPk($id)->with(array('tasks', 'tasks.taskComplete', 'tasks.taskChoice', 'userCount'));
 
-		CVarDumper::dump($model->tasks, 10, true);
 		//create a data provider for the relations
-		$taskProvider=new CArrayDataProvider($model->tasks, array(
+
+		$crit = new CDbCriteria;
+		$crit->with = array('taskComplete', 'taskChoice', 'set');
+		$crit->condition = 'set.id = '.$id.'';
+		$crit->together = true;
+
+		$taskProvider=new CActiveDataProvider('Task', array(
+			'criteria' => $crit,
+			'sort' => array(
+				'defaultOrder' => 't.title ASC',
+				),
 		    'id'=>'tasks',
 		    'pagination'=>array(
-		        'pageSize'=>10,
+		        'pageSize'=>15,
 		    ),
 		));
 

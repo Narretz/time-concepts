@@ -29,7 +29,7 @@ class LoginRegisterForm extends CFormModel
 			// rememberMe needs to be a boolean
 			array('rememberMe, sendMe', 'boolean'),
 			// password needs to be authenticated
-			array('password', 'authenticate', 'on' => 'Login'),
+			array('password', 'authenticate', 'on' => 'login'),
 		);
 	}
 
@@ -69,23 +69,38 @@ class LoginRegisterForm extends CFormModel
 
 	public function register()
 	{
-		$user = new User;
-
-		$user->email = $this->useremail;
-		$user->username = $this->useremail;
-		$user->password = hash('sha256', $this->password);
-		$user->type = 'native';
-		$user->last_login_time = date('Y-m-d h:i:s');
-		$user->create_time = date('Y-m-d h:i:s');
-
-		//create initial auth role for new user
-		$auth = Yii::app()->authManager;
-
-		if($user->save() && $auth->assign('Authenticated', $user->id))
+		if(!$this->hasErrors())
 		{
-			return true;
-		} else {
-			return false;
+
+			$criteria = new CDbCriteria;
+			$criteria->condition='email = :email';
+			$criteria->params=array( ':email'=> $this->useremail);	
+			$email = User::model()->find($criteria);
+
+			if($email)
+			{
+				$this->addError('useremail', 'Registration failed. Did you try to log in?');
+				return false;
+			}
+
+			$user = new User;
+			$user->email = $this->useremail;
+			$user->username = $this->useremail;
+			$user->password = hash('sha256', $this->password);
+			$user->type = 'native';
+			$user->last_login_time = date('Y-m-d h:i:s');
+			$user->create_time = date('Y-m-d h:i:s');
+
+			//create initial auth role for new user
+			$auth = Yii::app()->authManager;
+
+			if($user->save() && $auth->assign('Authenticated', $user->id))
+			{
+				return true;
+			} else {
+				return false;
+			}
+
 		}
 	}
 

@@ -53,7 +53,7 @@ class TaskComplete extends Model
 			array('description', 'safe', 'on' => 'create, update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, missing, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, text, missing, question', 'safe', 'on'=>'search'),
 			array('id', 'safe', 'on' => 'take'),
 		);
 	}
@@ -69,6 +69,7 @@ class TaskComplete extends Model
             'sets'=>array(self::MANY_MANY, 'Set',
                 'sets_to_tasks(set_id, task_id)'),
             'task' =>array(self::BELONGS_TO, 'Task', 'id'),
+            'results' => array(self::HAS_MANY, 'TaskCompleteResult', 'task_id'),
         );
 	}
 
@@ -102,8 +103,8 @@ class TaskComplete extends Model
 		$criteria->compare('id',$this->id);
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('missing',$this->missing,true);
+		$criteria->compare('question',$this->question,true);
 		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -37,7 +37,12 @@ class RightsFilter extends CFilter
 				$authItem .= ucfirst($module->id).'.';
 
 			// Append the controller id to the authorization item name
-			$authItem .= ucfirst($controller->id);
+			// Remove prepended subfolders
+			preg_match('([^/]+$)', $controller->id, $matches);
+			$authItem .= ucfirst(implode($matches));
+
+			//altenative, does not work when there is no slash
+			//$contId = substr(strrchr($controller->id, '/'), 1);
 
 			// Check if user has access to the controller
 			if( $user->checkAccess($authItem.'.*')!==true )

@@ -129,6 +129,49 @@ class TaskCompleteController extends Controller
 	}
 
 	/**
+	 * Displays Results for a single task.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionResult($id)
+	{
+		$crit = new CDbCriteria;
+		$crit->params=array(':id'=> $id);
+		$crit->condition='t.id=:id';
+		$model = TaskComplete::model()->find($crit);
+
+		if($model === null)
+			throw new CHttpException(404,'The requested Completion Task does not exist.');			
+
+		//model instance to provide filter / search function for results
+		$result = new TaskCompleteResult('search');
+		$result->unsetAttributes(); //clear any default values
+		$result->task_id = $id; //but restrain the results to the id of the current task
+
+		if(isset($_GET['TaskCompleteResult']))
+			$result->attributes=$_GET['TaskCompleteResult'];
+
+		$this->render('result',array(
+			'model'=>$model,
+			'result' => $result,
+		));
+	}
+
+	public function actionResultindex()
+	{
+		//model instance to provide filter / search function for all results
+		$model = new TaskCompleteResult('search');
+		$model->unsetAttributes(); //clear any default values
+
+		if(isset($_GET['TaskCompleteResult']))
+			$model->attributes=$_GET['TaskCompleteResult'];
+
+		$this->render('resultindex',array(
+			'model' => $model,
+		));
+	}
+
+
+	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded

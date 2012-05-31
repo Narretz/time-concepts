@@ -7,12 +7,16 @@
  * @property integer $id
  * @property integer $task_id
  * @property integer $user_id
- * @property string $missing
+ * @property string $answer
  * @property string $create_time
  * @property string $update_time
  */
 class TaskChoiceResult extends Model
 {
+
+	/*Virtual attribute that makes it possible to search by the name of the answer instead of the id in the search function*/
+
+	public $full_answer_search;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -43,7 +47,7 @@ class TaskChoiceResult extends Model
 			array('answer', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, task_id, user_id, answer, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, task_id, user_id, set_id, answer, create_time, update_time, full_answer_search', 'safe', 'on'=>'search'),
 			array('answer, task_id, user_id, time', 'safe', 'on' => 'take'),
 		);
 	}
@@ -53,9 +57,9 @@ class TaskChoiceResult extends Model
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
+		// fullAnswer is the answer model for the id specified in 'answer'
 		return array(
+			'fullAnswer' => array(self::HAS_ONE, 'TaskChoiceAnswer', array('id' => 'answer')),
 		);
 	}
 
@@ -71,6 +75,7 @@ class TaskChoiceResult extends Model
 			'answer' => 'Answer',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
+			'full_answer_search' => 'Answer',
 		);
 	}
 
@@ -85,15 +90,27 @@ class TaskChoiceResult extends Model
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		$criteria->with = array('fullAnswer' => array('select' => 'answer'));
+		$criteria->together = true;
 		$criteria->compare('task_id',$this->task_id);
+		$criteria->compare('set_id',$this->set_id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('missing',$this->missing,true);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('update_time',$this->update_time,true);
+		$criteria->compare('fullAnswer.answer',$this->full_answer_search,true);
+		$criteria->compare('t.create_time',$this->create_time,true);
+		$criteria->compare('t.update_time',$this->update_time,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		    'sort'=>array(
+		        'attributes'=>array(
+		            'full_answer_search'=>array( //specify the sorting mechanism for the virtual attribute
+		                'asc'=>'fullAnswer.answer',
+		                'desc'=>'fullAnswer.answer DESC',
+		            ),
+		            '*',
+		        ),
+		    ),
 		));
 	}
 }

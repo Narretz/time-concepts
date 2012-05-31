@@ -8,6 +8,8 @@ class TaskController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+	public $taskTypeSearch;
+
 	public function filters() 
 	{ 
 	   return array( 

@@ -67,7 +67,7 @@ class TaskChoice extends Model
 		// class name for the relations automatically generated below.
 		return array(
 			   'choiceAnswers' =>array(self::MANY_MANY, 'TaskChoiceAnswer', 
-            	'task_choice_2_answer(task_choice_id, task_choice_answer_id)'),
+            		'task_choice_2_answer(task_choice_id, task_choice_answer_id)'),
 			   'results' => array(self::HAS_MANY, 'TaskChoiceResult', 'task_id'
 			   	),
 		);
@@ -116,6 +116,7 @@ class TaskChoice extends Model
 		return 'Choice Task';
 	}
 
+	//Get the fields that are user input
 	public function getInput()
 	{
 		return array('answer', 'time');
@@ -157,5 +158,26 @@ class TaskChoice extends Model
 			//$this->results->addError('answer', 'Answer cannot be empty.');
 			return false;
 		}
+	}
+
+	public function mapAnswerIdText(){
+		foreach($this->choiceAnswers as $answer){
+			$idSwitch[$answer->id] = $i;
+		}
+	}
+
+	/**
+	 * Retrieves the text of an answer based on its id.
+	 * @return string the answer.
+	 */
+
+	public function getAnswerText($answer_id){
+		CVarDumper::dump($answer_id, 10, true);
+		foreach($this->choiceAnswers as $answer){
+			if($answer_id == $answer->id){
+				return $answer->answer;
+			}
+		}
+		return 'blubb';
 	}
 }

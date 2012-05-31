@@ -23,20 +23,13 @@ $this->menu=array(
 		'description',
 		'create_time',
 		'update_time',
+		'userCount',
 	),
 )); 
 
 echo '<p>';
 echo 'Tasks:';
 echo '</p>';
-/*
-foreach ($model->tasks_complete as $task){
-	echo '<p>';
-	echo $task->text;
-	echo '<br/>';
-	echo $task->missing;
-	echo '</p>';
-}*/
 
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$taskProvider,

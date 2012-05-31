@@ -13,6 +13,10 @@
  */
 class TaskCompleteResult extends Model
 {
+	//Variables that are used as search fields for relations
+	public $user_native_language;
+	public $user_prof_german;
+	public $user_prof_english;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -44,7 +48,7 @@ class TaskCompleteResult extends Model
 			array('missing', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, task_id, user_id, missing, create_time, update_time', 'safe', 'on'=>'search'),
+			array('task_id, set_id, user_id, missing, create_time, update_time, user_prof_english, user_native_language, user_prof_german', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +60,7 @@ class TaskCompleteResult extends Model
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' =>array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -68,9 +73,12 @@ class TaskCompleteResult extends Model
 			'id' => 'ID',
 			'task_id' => 'Task',
 			'user_id' => 'User',
-			'missing' => 'Missing',
+			'missing' => 'Answer',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
+			'user_native_language' => 'User Native Language',
+			'user_prof_english' => 'English Proficiency',
+			'user_prof_german' => 'German Proficiency',
 		);
 	}
 
@@ -85,15 +93,41 @@ class TaskCompleteResult extends Model
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//get the user to which the result belongs
+		$criteria->with = array('user');
+		$criteria->together = true;
+
+		//task id is preset
 		$criteria->compare('task_id',$this->task_id);
+
+		$criteria->compare('set_id',$this->set_id);	
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('missing',$this->missing,true);
 		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('update_time',$this->update_time,true);
+		$criteria->compare('user.lge_native', $this->user_native_language, true);
+		$criteria->compare('user.prof_german', $this->user_prof_german, true);
+		$criteria->compare('user.prof_english', $this->user_prof_english, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		    'sort'=>array(
+		    	'defaultOrder'=>'task_id ASC',
+		        'attributes'=>array(
+		            'user_native_language' => array( //specify the sorting mechanism for the virtual attribute
+		                'asc'=>'user.lge_native',
+		                'desc'=>'user.lge_native DESC',
+		            ),
+		            'user_prof_english' => array( //specify the sorting mechanism for the virtual attribute
+		                'asc'=>'user.prof_english',
+		                'desc'=>'user.prof_english DESC',
+		            ),
+		            'user_prof_german' => array( //specify the sorting mechanism for the virtual attribute
+		                'asc'=>'user.prof_german',
+		                'desc'=>'user.prof_german DESC',
+		            ),		           		       
+		            '*',
+		     	),
+		   	),
 		));
 	}
 }

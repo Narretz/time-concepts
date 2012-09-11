@@ -63,6 +63,7 @@ class TaskChoiceController extends Controller
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * Choice Tasks are special because you can add multiple choiceaAnswers to them, and update / remove them afterwards
 	 */
 	public function actionCreate()
 	{
@@ -94,6 +95,7 @@ class TaskChoiceController extends Controller
 			$model->choiceAnswers = $answers;
 			$task->taskChoice->choiceAnswers = $answers;
 
+			//Save the model and the choiceAnswers in one go
 			if($task->withRelated->save(true, array('taskChoice' => array('choiceAnswers',),)))
 			{
 				$this->redirect(array('view','id'=>$model->id));
@@ -120,8 +122,10 @@ class TaskChoiceController extends Controller
 			$crit->condition = 't.id = :taskId';
 			$crit->params=array(':taskId'=>$id);
 			$crit->with = array('taskChoice','taskChoice.choiceAnswers');
+			//If a choice Task is deleted, its anwers are deleted too
 			$task=Task::model()->find($crit); // $params is not needed
 			
+			//This seems a little unsafe. What if a delete fails? We end up with a half-task
 			foreach($task->taskChoice->choiceAnswers as $answer)
 			{
 				$answer->delete();
@@ -178,11 +182,10 @@ class TaskChoiceController extends Controller
 
 			//store the related models
 			$answers = $model->choiceAnswers;
-			//delete the linking table entries
+			//delete the linking table entries; otherwise we cannot add new answers in an update
 			Yii::app()->db->createCommand()->delete('task_choice_2_answer', 'task_choice_id = ?', array($model->id));
 
-			//CVarDumper::dump($model->choiceAnswers, 10, true);
-
+			//we need to hanlde three cases; existing answer is updated (or not), new one is added, or old one is deleted
 			foreach($_POST['TaskChoiceAnswer'] as $i => $answer)
 			{
 				foreach ($answers as $k => $old)
@@ -201,8 +204,6 @@ class TaskChoiceController extends Controller
 			}
 
 			$model->choiceAnswers = $answers;	
-
-			//CVarDumper::dump($model->choiceAnswers, 10, true);
 
 			if($model->withRelated->save(true, array('task', 'choiceAnswers')))
 					$this->redirect(array('view','id'=>$model->id));

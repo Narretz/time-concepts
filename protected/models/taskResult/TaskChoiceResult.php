@@ -87,6 +87,7 @@ class TaskChoiceResult extends Model
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
+		//Search functionality is expanded to include the full answer. Initially, only the id is provided
 
 		$criteria=new CDbCriteria;
 

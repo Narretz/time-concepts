@@ -20,4 +20,7 @@
 	<?php echo CHtml::encode($data->question); ?>
 	<br />
 
+	<?php echo CHtml::link(CHtml::encode('Results'), array('result', 'id'=>$data->id)); ?>
+	<br />
+
 </div>

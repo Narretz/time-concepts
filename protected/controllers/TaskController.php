@@ -2,6 +2,8 @@
 
 class TaskController extends Controller
 {
+	/*It is not possible to delete, create or update tasks on their own. 
+	This must always happen from one of the specific task types*/
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -38,73 +40,6 @@ class TaskController extends Controller
 			'model'=> $model,
 			'taskDetail' => $taskDetail,
 		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Task;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task']))
-		{
-			$model->attributes=$_POST['Task'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task']))
-		{
-			$model->attributes=$_POST['Task'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -159,6 +94,7 @@ class TaskController extends Controller
 		}
 	}
 
+	//returns the model that is associated with a number in the type attribute
 	public function getTaskType($typeId){
 		
 		$types = array(

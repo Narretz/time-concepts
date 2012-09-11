@@ -20,5 +20,8 @@
 	<?php echo CHtml::encode($data->missing); ?>
 	<br />
 
+	<?php echo CHtml::link(CHtml::encode('Results'), array('result', 'id'=>$data->id)); ?>
+	<br />
+
 
 </div>

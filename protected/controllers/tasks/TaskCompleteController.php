@@ -42,6 +42,7 @@ class TaskCompleteController extends Controller
 		{		
 			$model->attributes = $_POST['TaskComplete'];
 
+			//Create the base task model
 			$model->task = new Task;
 			$model->task->type = 1;
 
@@ -63,6 +64,7 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		//Note that the task relation model is not updated
 		$model=$this->loadModel($id);
 		$model->scenario = 'update';
 
@@ -88,6 +90,7 @@ class TaskCompleteController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+		//Task relation model is not updated
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
@@ -142,7 +145,7 @@ class TaskCompleteController extends Controller
 		if($model === null)
 			throw new CHttpException(404,'The requested Completion Task does not exist.');			
 
-		//model instance to provide filter / search function for results
+		//result model instance to provide filter / search function for results
 		$result = new TaskCompleteResult('search');
 		$result->unsetAttributes(); //clear any default values
 		$result->task_id = $id; //but restrain the results to the id of the current task
@@ -156,6 +159,9 @@ class TaskCompleteController extends Controller
 		));
 	}
 
+	/*
+	* Action displays all results from any taskComplete task
+	*/
 	public function actionResultindex()
 	{
 		//model instance to provide filter / search function for all results

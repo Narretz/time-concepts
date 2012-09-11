@@ -104,6 +104,7 @@ class TaskCompleteResult extends Model
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('missing',$this->missing,true);
 		$criteria->compare('create_time',$this->create_time,true);
+		//The folloeing three searches in relation models
 		$criteria->compare('user.lge_native', $this->user_native_language, true);
 		$criteria->compare('user.prof_german', $this->user_prof_german, true);
 		$criteria->compare('user.prof_english', $this->user_prof_english, true);

@@ -81,12 +81,13 @@ class SiteController extends Controller
 
 	/**
 	 * Displays the login / register page
+	 * If a login or a register function is called depends on the button that is clicked
+	 * a scenario is then set accordingly to switch the validation rules
 	 */
 	public function actionLogin()
 	{
 		$model = new LoginRegisterForm;
 
-		//CVarDumper::dump($_POST, 10, true);
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-register-form')
 		{
@@ -134,6 +135,7 @@ class SiteController extends Controller
 		  }
 		 }
 
+		//fblogin is set by the facebook plugin on a successful authentication
 		if($fbUser && Yii::app()->user->isGuest && isset($_GET['fbLogin']))
 		{
 		    if(!$this->loginFBUser($user_profile))

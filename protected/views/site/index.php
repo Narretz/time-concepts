@@ -31,34 +31,20 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
 
 </p>
 
-<div id="share">
-
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="Narretz">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-
-<?php/* $this->widget('ext.yii-facebook-opengraph.plugins.LikeButton', array(
-   //'href' => 'YOUR_URL', // if omitted Facebook will use the OG meta tag
-   'show_faces'=>true,
-   'send' => true
-)); */?>
-
-
-</div>
-
 <?php
 
+//Check if user has access to the menu
 if(Yii::app()->user->isSuperuser || Yii::app()->user->checkAccess('Supervisor'))
 {
 	$this->menu=array(
 				array('label'=>'View Sets', 'url'=>array('set/index')),
-				array('label'=>'View Free Answer Tasks', 'url'=>array('tasks/taskcomplete/index')),	
-				array('label'=>'Create Free Answer Tasks', 'url'=>array('tasks/taskcomplete/create')),
-				array('label'=>'Manage Free Answer Tasks', 'url'=>array('tasks/taskcomplete/admin')),
-				array('label' => 'View All Results for Free Answer Tasks', 'url' => array('tasks/taskcomplete/resultindex')),
-				array('label'=>'View Judgement Tasks', 'url'=>array('tasks/taskchoice/index')),	
-				array('label'=>'Create Judgement Tasks', 'url'=>array('tasks/taskchoice/create')),
-				array('label'=>'Manage Judgement Tasks', 'url'=>array('tasks/taskchoice/admin')),
+				array('label'=>'View Free Answer Tasks', 'url'=>array('tasks/taskComplete/index')),	
+				array('label'=>'Create Free Answer Tasks', 'url'=>array('tasks/taskComplete/create')),
+				array('label'=>'Manage Free Answer Tasks', 'url'=>array('tasks/taskComplete/admin')),
+				array('label' => 'View All Results for Free Answer Tasks', 'url' => array('tasks/taskComplete/resultindex')),
+				array('label'=>'View Judgement Tasks', 'url'=>array('tasks/taskChoice/index')),	
+				array('label'=>'Create Judgement Tasks', 'url'=>array('tasks/taskChoice/create')),
+				array('label'=>'Manage Judgement Tasks', 'url'=>array('tasks/taskChoice/admin')),
 		);
 }
 

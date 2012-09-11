@@ -27,13 +27,11 @@ class SetController extends Controller
 		return 'take';
 	}
 
+	/*This function is called before an action is called
+	It is used to set up the Quiz wizard before the 'take' action
+	- completely when it is loaded for the first time
+	- from session when session data is saved*/
 	public function beforeAction($action) {
-
-		//CVarDumper::dump($this->getActionParams(), 10, true);
-		//CVarDumper::dump($model->tasks_complete, 10, true);
-
-		//CVarDumper::dump($_GET['step'], 10, true);
-
 		$config = array();
 		switch ($action->id) {
 		case 'take':
@@ -52,7 +50,7 @@ class SetController extends Controller
 					$criteriaAccess->condition='user_id=:user_id AND set_id=:id';
 					$setUser = SetUser::model()->find($criteriaAccess);
 
-					if($setUser && !Yii::app()->user->checkAccess('Set.Take', array('completed'=>$setUser->completed)))
+					if($setUser && !Yii::app()->user->checkAccess('Set.Take', array('completed'=>$setUser->completed)) && !Yii::app()->user->checkAccess('Supervisor'))
 					{
 						throw new CHttpException('403', 'You have already finished this part of the study.');
 					}
@@ -104,6 +102,7 @@ class SetController extends Controller
 						//if the user had already entered his details, don't show the info form
 						foreach($user->attributes as $attr => $val)
 						{
+							//checks if one attribute is set, which means that the form was already fiiled once
 							if(in_array($attr, $prop))
 							{
 								if(!empty($val) || $val != 0)
@@ -127,8 +126,8 @@ class SetController extends Controller
 						'addParams' => array('id' => $_GET['id']),
 						'events'=>array(
 							'onStart'=>'wizardStart',
-							'onProcessStep'=>'quizProcessStep',
-							'onFinished'=>'quizFinished',
+							'onProcessStep'=>'setProcessStep',
+							'onFinished'=>'setFinished',
 							'onInvalidStep'=>'wizardInvalidStep',
 						)
 					);
@@ -161,10 +160,11 @@ class SetController extends Controller
 	* Process steps from the quiz
 	* @param WizardEvent The event
 	*/
-	public function quizProcessStep($event) {
+	public function setProcessStep($event) {
 		
 		switch ($event->step) {
 			case 'info':
+				//renders the user info form
 				$model = new UserInfoForm;
 				if(isset($_POST['UserInfoForm']))
 				{
@@ -182,6 +182,7 @@ class SetController extends Controller
 				break;
 			
 			case 'start':
+				//start page of a set
 				if(isset($_POST['Submit']))
 				{
 					$event->sender->save(array('start' => 'started'));
@@ -192,6 +193,7 @@ class SetController extends Controller
 				break;
 
 			default:
+				//a task page in a set
 				//dependant on task type, handle the output / input generation
 				$type = Yii::app()->session['Quiz.types'][$event->step];
 				$model = $type::model()->findByPk($event->step);
@@ -234,10 +236,10 @@ class SetController extends Controller
 
 
 	/**
-	* The quiz
+	* what happens when a set is finished
 	* @param WizardEvent The event
 	*/
-	public function quizFinished($event) {
+	public function setFinished($event) {
 		$setId = $_GET['id'];
 		$userId = Yii::app()->user->id;
 
@@ -247,6 +249,7 @@ class SetController extends Controller
 		//Save the actual results, as stored in the session		
 		foreach ($event->data as $result)
 		{
+			//create a model for each saved result in the session and save it
 			if(is_array($result) && isset($result['task_id']))
 			{
 				$modelType = $result['type'].'Result';
@@ -262,6 +265,7 @@ class SetController extends Controller
 					throw $e;
 				}
 
+				//Create the email response body based on the task type
 				$body .= "Task Id:". $result['task_id']."\n";
 				
 				if(isset($result['answer']))
@@ -299,10 +303,13 @@ class SetController extends Controller
 		unset(Yii::app()->session['Quiz.types']);
 		unset(Yii::app()->session['Quiz.steps']);
 
+		//add header and body to email, send
 		$subject = $userId.' just finished the set with the id '.$setId;
-
+		// Sending mails is disabled on localhost, since you cannot send emails from localhost!
 		mail(Yii::app()->params['adminEmail'],$subject,$body);
 
+		//Redirect the user either to the end page or to the next part of the quiz
+		//This is hardcoded, since we only have four sets
 		if($setId == 1 || $setId == 3)
 		{
 			$nextQuiz = ++$setId;

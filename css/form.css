@@ -158,3 +158,11 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+
+div.quizRadio label{
+	display: inline;
+}
+
+div.quizRadio{
+	
+}

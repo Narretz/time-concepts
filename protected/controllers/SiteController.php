@@ -100,7 +100,7 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginRegisterForm'];
 
-			if($_POST['yt1'] === 'Login')
+			if(isset($_POST['yt1']) && $_POST['yt1'] === 'Login')
 			{
 				$model->scenario = 'login';
 				// validate user input and redirect to the previous page if valid
@@ -110,7 +110,7 @@ class SiteController extends Controller
 				}
 			}
 
-			if($_POST['yt0'] === 'Register')
+			if(isset($_POST['yt0']) && $_POST['yt0'] === 'Register')
 			{
 				// validate user input and redirect to the previous page if valid
 				if($model->validate() && $model->register() && $model->login())

@@ -33,6 +33,13 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
+# Sublime Text generated files #
+######################
+
+*.sublime-workspace
+*.sublime-project
+sftp-config.json
+
 # Yii generated files #
 ######################
 

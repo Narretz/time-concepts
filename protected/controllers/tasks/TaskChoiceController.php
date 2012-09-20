@@ -73,7 +73,7 @@ class TaskChoiceController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		
-		if(isset($_POST['TaskChoice']) || $_POST['TaskChoiceAnswer'])
+		if(isset($_POST['TaskChoice']) || isset($_POST['TaskChoiceAnswer']))
 		{
 			$task = new Task;
 			//Set the type for the task
